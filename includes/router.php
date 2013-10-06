@@ -11,9 +11,8 @@
 		then execute its add() method.
 */
 
-if (isset($_SERVER['PATH_INFO']) && strlen($_SERVER['PATH_INFO']) > 1) {
-
-	$segments = explode('/' , $_SERVER['PATH_INFO']);
+if (isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
+	$segments = explode('/' , $_SERVER['REQUEST_URI']);
 
 	// build our class name from URL and load its file
 	$controller = $segments[1];
