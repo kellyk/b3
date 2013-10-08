@@ -14,7 +14,7 @@
 <div class="container">
 	<div class="page-header">
 	  	<h1>Best Book Buy <small>for all your textbook needs</small></h1>
-	  	<a href="<?php echo SITE_ROOT; ?>/admin/login">
+	  	<a href="<?php echo SITE_ROOT; ?>admin/login">
 	  		<button id="adminLogin" class="btn btn-primary pull-right">Admin Login</button>
 	  	</a>
  		<button data-toggle="tooltip" title="temp dev tool.. click and refresh to simulate first visit"
@@ -25,9 +25,9 @@
 	</div>
 	<nav>
 		<ul class="main-nav nav nav-tabs pull-down">
-			<li><a href="<?php echo SITE_ROOT; ?>/search">Search</a></li>
-			<li><a href="<?php echo SITE_ROOT; ?>/cart">Cart</a></li>
-			<li><a href="<?php echo SITE_ROOT; ?>/login">Login / Register</a></li>
+			<li><a href="<?php echo SITE_ROOT; ?>search">Search</a></li>
+			<li><a href="<?php echo SITE_ROOT; ?>cart">Cart</a></li>
+			<li><a href="<?php echo SITE_ROOT; ?>login">Login / Register</a></li>
 		</ul>
 	</nav>
 
