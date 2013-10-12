@@ -8,4 +8,3 @@
 	<li><a href="<?php echo SITE_ROOT; ?>admin/logout">Logout Admim</a></li>
 </ul>
 
-<?php include_once('views/global/footer.php'); ?>
