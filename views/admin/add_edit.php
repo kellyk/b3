@@ -62,5 +62,6 @@
 		</form>
 	</div>
 <div>
+</div>
  <?php include_once('views/global/footer.php'); ?>
 

@@ -20,4 +20,14 @@ class Admin extends BaseController {
 		require_once('views/admin/dashboard.php');
 		require_once('views/admin/catalog.php');
 	}
+
+	public function add_edit() {
+		require_once('views/admin/dashboard.php');
+		require_once('views/admin/add_edit.php');
+	}
+	
+	public function search() {
+		require_once('views/admin/dashboard.php');
+		require_once('views/search.php');
+	}
 }
