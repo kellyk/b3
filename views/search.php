@@ -16,5 +16,6 @@
 
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
+</div>
 
 <?php include_once('views/global/footer.php'); ?>
