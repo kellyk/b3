@@ -12,16 +12,20 @@
 	display: block;
 }
 
-.container > .nav-list {
-	float: left;
+.nav-list {
 	border-right: 1px solid #DDD;
+	float: left;
 	margin-top: -30px;
 	margin-left: -15px;
 }
 
 .nav-list + div {
 	float: left;
-	margin-left: 15px;
+	border-left: 1px solid #DDD;
+	padding-left: 15px;
+	margin-top: -30px;
+	margin-left: -1px;
+	padding-top: 30px;
 }
 
 .removeReview {
