@@ -30,4 +30,9 @@ class Admin extends BaseController {
 		require_once('views/admin/dashboard.php');
 		require_once('views/search.php');
 	}
+
+	public function search_results() {
+		require_once('views/admin/dashboard.php');
+		require_once('views/admin/search_results.php');
+	}
 }

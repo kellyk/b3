@@ -31,3 +31,7 @@
 .removeReview {
 	margin-left: 30px;
 }
+
+.deleted {
+	background-color: red;
+}
