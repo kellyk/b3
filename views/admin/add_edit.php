@@ -1,9 +1,14 @@
+<?php import_request_variables('p', 'p_'); ?>
 <div>
 	<div id="insert_new_book" >	
 		<form role="form">
 			<div class="form-group">
 				<label for="isbn">ISBN:</label>
+				<?php if($_GET['isbn']) : ?>
+				<input type="text" name="isbn" class="form-control" id="isbn" value="<?php echo $_GET['isbn']; ?>" disabled />
+				<?php else : ?>
 				<input type="text" name="isbn" class="form-control" id="isbn" />
+				<?php endif; ?>
 				<label for="title">Title:</label>
 				<input type="text" name="title" class="form-control" id="title" />
 			</div>
