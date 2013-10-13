@@ -13,7 +13,6 @@
 
 if (isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
 	$segments = explode('/' , $_SERVER['REQUEST_URI']);
-
 	// build our class name from URL and load its file
 	$controller = $segments[1];
 	require_once('controllers/' . $controller . '.php');
@@ -22,8 +21,10 @@ if (isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
 	$page = new $controller();
 
 	// check for method in URL or set default method as index()
-	if (sizeof($segments) > 2 && $segments[2] )
-		$method = $segments[2];
+	if (sizeof($segments) > 2 && $segments[2] ){
+		$method = explode('?', $segments[2]);
+		$method = $method[0];
+	}
 	else
 		$method = 'index';
 
