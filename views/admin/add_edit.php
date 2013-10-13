@@ -1,4 +1,3 @@
-<?php import_request_variables('p', 'p_'); ?>
 <div>
 	<div id="insert_new_book" >	
 		<form role="form">
@@ -69,6 +68,4 @@
 </div>
 </div>
 
-<div>
- <?php include_once('views/global/footer.php'); ?>
 
