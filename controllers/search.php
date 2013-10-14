@@ -9,4 +9,12 @@ class Search extends BaseController {
 	public function index() {
 		require_once('views/search.php');
 	}
+
+	public function results() {
+		require_once('views/search_results.php');
+	}
+
+	public function reviews() {
+		require_once('views/reviews.php');
+	}
 }
