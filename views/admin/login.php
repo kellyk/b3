@@ -11,7 +11,9 @@
 		    <label for="pin">Pin</label>
 		    <input type="pin" class="form-control" id="pin" placeholder="Pin">
 		</div>
-		<button type="submit" class="btn btn-primary">Sign in</button>
+		<!--This button auto forwards temporarily until we have users.
+			Later we will authenticate and redirect as appropriate -->
+		<a class="btn btn-primary" href="<?php echo SITE_ROOT ?>admin">Sign in</a>
 	</form>
 </div>
 
