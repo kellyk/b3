@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 		switch(selection) {
 			case 'new':
-				window.location = "./profile"
+				window.location = "./profile/register"
 				break;
 			case 'returning':
 				window.location = "./login"
