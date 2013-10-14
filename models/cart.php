@@ -10,7 +10,7 @@ class CartModel extends BaseModel {
 		// some dummy data
 		$item1 = array(
 			'isbn' => 123456789,
-			'bookTitle'    => 'Intro to Databases',
+			'title'    => 'Intro to Databases',
 			'author' => 'Jon Stewart',
 			'publishDate'     => '03-MAR-2001',
 			'price'     => 119.99
@@ -18,7 +18,7 @@ class CartModel extends BaseModel {
 
 		$item2 = array(
 			'isbn' => 999999999,
-			'bookTitle'    => 'Dos Mundos',
+			'title'    => 'Dos Mundos',
 			'author' => 'Shawn Spencer',
 			'publishDate'     => '12-JAN-2009',
 			'price'     => 47.99

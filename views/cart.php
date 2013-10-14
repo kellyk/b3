@@ -6,31 +6,34 @@ if (isset($data)) {
 
 <table class="table">
 	<tr>
+		<th>Remove</th>
 		<th>ISBN</th>
 		<th>Title</th>
 		<th>Author</th>
 		<th>Publish Date</th>
-		<th>Price</th>
 		<th>Quantity</th>
-		<th>Remove</th>
+		<th>Price</th>
 	</tr>
-
 	<?php
 	// iterate through books array and display in cart
 	foreach ($data as $book) {
-		// delete button
-		echo '<tr>';
-		echo $book['isbn'];
-
-		// book info
-		foreach ($book as $key => $value) {
-			echo "<td>{$value}</td>";
-		}
+		echo '<tr><td><span class="glyphicon glyphicon-remove"></span></td>';
+		echo '<td>' . $book['isbn'] . '</td>';
+		echo '<td>' . $book['title'] . '</td>';
+		echo '<td>' . $book['author'] . '</td>';
+		echo '<td>' . $book['publishDate'] . '</td>';
 		echo '<td><input class="form-control small-input" type="number" min="0" value="1" />' .
-			'<button class="btn btn-sm btn-primary">Update</button></td>';
-		echo '<td><span class="glyphicon glyphicon-remove"></span></td></tr>';
+		'<button class="btn btn-sm btn-primary">Update</button></td>';
+		echo '<td>' . $book['price'] . '</td></tr>';
 	}
-	echo '</table>';
+	?>
+
+	<tr>
+		<td colspan="6" class="right-align">Total</td>
+		<td>$167.98</td>
+	</tr>
+</table>
+<?php
 }
 // if no items in cart, display appropriate message
 else {

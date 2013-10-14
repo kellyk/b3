@@ -7,9 +7,13 @@ select[multiple] {
 }
 
 .small-input {
-	width: 25%;
+	width: 4em;
 	float: left;
 	margin-right: 1em;
+}
+
+.right-align {
+	text-align: right;
 }
 
 .footer {

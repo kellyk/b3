@@ -1,9 +1,9 @@
 <div>
-	<div id="insert_new_book" >	
+	<div id="insert_new_book" >
 		<form role="form">
 			<div class="form-group">
 				<label for="isbn">ISBN:</label>
-				<?php if($_GET['isbn']) : ?>
+				<?php if(isset($_GET['isbn'])) : ?>
 				<input type="text" name="isbn" class="form-control" id="isbn" value="<?php echo $_GET['isbn']; ?>" disabled />
 				<?php else : ?>
 				<input type="text" name="isbn" class="form-control" id="isbn" />
@@ -54,7 +54,7 @@
 			<div class="form-group">
 				<label for="reviewsBox">Review(s):</label>
 				<div class="form-group" id="reviewsBox">
-					<textarea name="review" class="form-control"></textarea> 
+					<textarea name="review" class="form-control"></textarea>
 				</div>
 				<a href="#" class="addReview">Add Review</a><a href="#" class="removeReview">Remove last review</a>
 			</div>
@@ -62,7 +62,7 @@
 				<input type="button" class="form-control" value="Insert" />
 				<input type="button" class="form-control" value="Cancel" />
 			</div>
-			
+
 		</form>
 	</div>
 </div>
