@@ -47,6 +47,21 @@
 				<td>$4.00</td>
 				<td>$77.98</td>
 			</tr>
+			<tr>
+				<td>
+					<input type="button" class="form-control" value="Order Placed" /><br /><br />
+					<input type="button" class="form-control" value="Cancel" />
+				</td>
+				<td><strong>#12346</strong></td>
+				<td>
+					INVENTORY
+				</td>
+				<td>
+					<a href="#">654321</a></td>
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
 		<tbody>
 		</tbody>
 		<tfoot>
