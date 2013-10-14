@@ -1,6 +1,6 @@
 <?php include_once('views/global/header.php'); ?>
 
-<div class = "row col-xs-5">
+<div class = "row col-md-5">
 	<h3>Administrator Login</h3>
 	<form role="form">
 	  	<div class="form-group">

@@ -2,6 +2,16 @@
 	margin-top:30px;
 }
 
+select[multiple] {
+	height:100px;
+}
+
+.small-input {
+	width: 25%;
+	float: left;
+	margin-right: 1em;
+}
+
 .footer {
 	background: #fff;
 	width: 100%;

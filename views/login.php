@@ -1,6 +1,6 @@
 <?php include_once('views/global/header.php'); ?>
 
-<div class = "row col-xs-5">
+<div class = "row col-md-5">
 	<h3>Login</h3>
 	<form role="form">
 	  	<div class="form-group">
@@ -14,8 +14,8 @@
 		<button type="submit" class="btn btn-primary">Sign in</button>
 	</form>
 </div>
-<div class = "row col-xs-1"></div>
-<div class = "row col-xs-5">
+<div class = "row col-md-1"></div>
+<div class = "row col-md-5">
 	<h3>Not a member yet?</h3>
 	<a href="<?php echo SITE_ROOT; ?>profile/register"><button class="btn-lg btn-success">Register</button></a>
 </div>

@@ -3,7 +3,7 @@
 
 	<h2>Register!</h2>
 	<form role="form" >
-		<div class = "row col-xs-5">
+		<div class = "row col-md-5">
 		  	<div class="form-group">
 		    	<label for="username">Username</label>
 		    	<input type="text" class="form-control" id="username" placeholder="Enter username">
@@ -97,8 +97,8 @@
 				</div>
 			</div>
 		</div>
-		<div class = "row col-xs-1"></div>
-		<div class = "row col-xs-6">
+		<div class = "row col-md-1"></div>
+		<div class = "row col-md-6">
 			<div class="form-group">
 			    <label for="cc-type">Credit Card</label>
 			    <select class="form-control" id="cc-type">
