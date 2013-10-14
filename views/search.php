@@ -1,6 +1,7 @@
 <?php include_once('views/global/header.php'); ?>
 
 <div class="col-md-6">
+<div>
 <form role="form">
   	<div class="form-group">
 	    <label for="searchFor">Search for:</label>
@@ -33,4 +34,6 @@
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 </div>
+</div>
+
 <?php include_once('views/global/footer.php'); ?>
