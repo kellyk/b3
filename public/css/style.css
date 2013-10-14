@@ -5,6 +5,9 @@
 select[multiple] {
 	height:100px;
 }
+input[type="radio"]{
+	margin-right:1em;
+}
 
 .small-input {
 	width: 4em;
@@ -58,4 +61,8 @@ select[multiple] {
 .search-params {
 	color: #aaa;
 	font-size: 0.8em;
+}
+
+.cart-controls button, .cart-controls a{
+	margin-right: 1em;
 }

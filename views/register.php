@@ -1,7 +1,7 @@
 <?php include_once('views/global/header.php'); ?>
 
 
-	<h2>Register!</h2>
+	<h3>Register!</h3>
 	<form role="form" >
 		<div class = "row col-md-5">
 		  	<div class="form-group">

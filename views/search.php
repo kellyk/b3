@@ -1,5 +1,5 @@
 <?php include_once('views/global/header.php'); ?>
-
+<h3>Search</h3><br />
 <div class="col-md-6">
 <div>
 <form role="form">

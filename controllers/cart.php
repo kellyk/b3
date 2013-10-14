@@ -16,7 +16,7 @@ class Cart extends BaseController {
 		require_once('views/cart.php');
 	}
 
-	public function test() {
-		echo "test method in cart controller";
+	public function checkout() {
+		require_once('views/checkout.php');
 	}
 }
