@@ -29,7 +29,7 @@ $(document).ready(function() {
 				window.location = "./login"
 				break;
 			case 'admin':
-				window.location = "./login"
+				window.location = "./admin/login"
 				break;
 			default:
 				window.location = "./search"
