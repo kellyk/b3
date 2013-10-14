@@ -1,5 +1,5 @@
 <?php include_once('views/global/header.php'); ?>
-
+<h3>Search</h3><br />
 <div class="col-md-6">
 <div>
 <form role="form">
@@ -31,7 +31,8 @@
 	    </select>
   	</div>
 
-  <button type="submit" class="btn btn-default">Submit</button>
+  <!--This button auto forwards temporarily -->
+		<a href="<?php echo SITE_ROOT; ?>search/results" class="btn btn-primary">Submit</a>
 </form>
 </div>
 </div>

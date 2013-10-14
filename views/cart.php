@@ -1,6 +1,8 @@
 <?php
 include_once('views/global/header.php');
-
+?>
+<h3>Shopping Cart</h3><br />
+<?php
 if (isset($data)) {
 ?>
 
@@ -33,6 +35,11 @@ if (isset($data)) {
 		<td>$167.98</td>
 	</tr>
 </table>
+
+<div class="cart-controls pull-right">
+	<button class="btn btn-lg btn-default">Recalculate</button>
+	<a href="<?php echo SITE_ROOT; ?>cart/checkout" class="btn btn-lg btn-success">Checkout</a>
+</div>
 <?php
 }
 // if no items in cart, display appropriate message
