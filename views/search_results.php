@@ -1,6 +1,6 @@
 <?php include_once('views/global/header.php'); ?>
 <div>
-	<h3>Results for <span class="contextual-text">Databases in <i>Keyword Anywhere</i></span></h3>
+	<h3>Results for <span class="text-primary">Databases in <i>Keyword Anywhere</i></span></h3>
 	<table class="table">
 		<thead>
 			<th>Action</th>

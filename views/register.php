@@ -133,7 +133,7 @@
 				</div>
 			</div> <br />
 			<div class="form-group">
-				<button type="submit" class="btn btn-success">Sign up</button>
+				<button type="submit" class="btn btn-lg btn-success">Sign up</button>
 			</div>
 			</div>
 		</div>

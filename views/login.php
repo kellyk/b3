@@ -13,7 +13,7 @@
 		</div>
 		<!--This button auto forwards temporarily until we have users.
 			Later we will authenticate and redirect as appropriate -->
-		<a href="<?php echo SITE_ROOT; ?>search" class="btn btn-primary">Sign in</a>
+		<a href="<?php echo SITE_ROOT; ?>profile" class="btn btn-primary">Sign in</a>
 	</form>
 </div>
 <div class = "row col-md-1"></div>

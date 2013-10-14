@@ -1,6 +1,6 @@
 <?php include_once('views/global/header.php'); ?>
 <div>
-	<h3>Reviews for <span class="contextual-text">SQL Server 2000 for Experienced DBA's</span></h3>
+	<h3>Reviews for <span class="text-primary">SQL Server 2000 for Experienced DBA's</span></h3>
 	<div class="reviews">
 		<div class="well review">
 			<p>Very informative.</p>
