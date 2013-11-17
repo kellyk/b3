@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS administrator (
 CREATE TABLE IF NOT EXISTS phone_number (
 	username 	VARCHAR(32) NOT NULL REFERENCES administrator (username) ON DELETE CASCADE,
 	phone_number	NUMERIC(10, 0),
-	PRIMARY KEY (phone_number) /* is a primary key needed?*/
+	PRIMARY KEY (phone_number) /* is a primary key needed? And index on username would make more sense*/
 )ENGINE='InnoDB';
 
 
