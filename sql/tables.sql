@@ -4,7 +4,7 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS orders (
 	order_number	INTEGER PRIMARY KEY AUTO_INCREMENT,
 	order_date	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	username	varchar(20) NOT NULL REFERENCES user (username),
+	username	varchar(32) NOT NULL REFERENCES user (username),
 	shipped_date	TIMESTAMP,
 	address_line	VARCHAR(50),
 	address_city	VARCHAR(50),
@@ -20,13 +20,13 @@ CREATE TABLE IF NOT EXISTS line_item (
 ) ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS cart (
-	username	VARCHAR(20) PRIMARY KEY,
+	username	VARCHAR(32) PRIMARY KEY,
 	expire_date	TIMESTAMP NOT NULL,
 	FOREIGN KEY (username) REFERENCES user (username) ON DELETE CASCADE
 ) ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS cart_item (
-	username	VARCHAR(20) NOT NULL REFERENCES cart (username) ON DELETE CASCADE,
+	username	VARCHAR(32) NOT NULL REFERENCES cart (username) ON DELETE CASCADE,
 	isbn		varchar(11) NOT NULL REFERENCES book (isbn) ON DELETE CASCADE,
 	quantity	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY (username, isbn)
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS administrator (
 CREATE TABLE IF NOT EXISTS phone_number (
 	username 	VARCHAR(32) NOT NULL REFERENCES administrator (username) ON DELETE CASCADE,
 	phone_number	NUMERIC(10, 0),
-	PRIMARY KEY (phone_number) /* is a primary key needed? And index on username would make more sense*/
+	PRIMARY KEY (username, phone_number) /* The whole record is the primary key */
 )ENGINE='InnoDB';
 
 
