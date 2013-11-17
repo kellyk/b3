@@ -32,4 +32,35 @@ CREATE TABLE IF NOT EXISTS cart_item (
 	PRIMARY KEY (username, isbn)
 ) ENGINE='InnoDB';
 
+CREATE TABLE IF NOT EXISTS user (
+	username 	VARCHAR(32) NOT NULL,
+	PIN 	 	NUMERIC(4,0) NOT NULL,
+	first_name	VARCHAR(32) NOT NULL,
+	last_name	VARCHAR(32) NOT NULL,
+	city		VARCHAR(32) NOT NULL,
+	address		VARCHAR(32) NOT NULL,
+	zip		NUMERIC(5,0) NOT NULL, 
+	state		VARCHAR(32) NOT NULL, # maybe we could use this http://kimbriggs.com/computers/computer-notes/mysql-notes/mysql-create-state-table.file
+	cctype		ENUM('MasterCard','VISA','American Express'), # more?
+	ccnumber	NUMERIC(16), 
+	PRIMARY KEY (username)
+	# cart and order are not total for this relation so they don't have to be here?
+)ENGINE='InnoDB';
+
+CREATE TABLE IF NOT EXISTS administrator (
+	username	VARCHAR(32) NOT NULL REFERENCES user (username) ON DELETE CASCADE,
+	hire_date	DATE NOT NULL,
+	# phone numbers are in phone_number
+	PRIMARY KEY (username)
+)ENGINE='InnoDB';
+
+
+CREATE TABLE IF NOT EXISTS phone_number (
+	username 	VARCHAR(32) NOT NULL REFERENCES administrator (username) ON DELETE CASCADE,
+	phone_number	NUMERIC(10, 0),
+	PRIMARY KEY (phone_number) # is a primary key needed?
+)ENGINE='InnoDB';
+
+
+
 COMMIT;
