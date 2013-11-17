@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS user (
 	address		VARCHAR(32) NOT NULL,
 	zip		NUMERIC(5,0) NOT NULL, 
 	state		VARCHAR(32) NOT NULL, /* maybe we could use this http://kimbriggs.com/computers/computer-notes/mysql-notes/mysql-create-state-table.file*/
-	cctype		ENUM('MasterCard','VISA','American Express'), # more?
+	cctype		ENUM('MasterCard','VISA','American Express', 'Discover'), # more?
 	ccnumber	NUMERIC(16), 
 	PRIMARY KEY (username)
-	/* cart and order are not total for this relation so they don't have to be here?*/
+	/* cart and order reference this table */
 )ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS orders (
