@@ -1,6 +1,21 @@
 START TRANSACTION;
 BEGIN;
 
+CREATE TABLE IF NOT EXISTS user (
+	username 	VARCHAR(32) NOT NULL,
+	PIN 	 	NUMERIC(4,0) NOT NULL,
+	first_name	VARCHAR(32) NOT NULL,
+	last_name	VARCHAR(32) NOT NULL,
+	city		VARCHAR(32) NOT NULL,
+	address		VARCHAR(32) NOT NULL,
+	zip		NUMERIC(5,0) NOT NULL, 
+	state		VARCHAR(32) NOT NULL, /* maybe we could use this http://kimbriggs.com/computers/computer-notes/mysql-notes/mysql-create-state-table.file*/
+	cctype		ENUM('MasterCard','VISA','American Express'), # more?
+	ccnumber	NUMERIC(16), 
+	PRIMARY KEY (username)
+	/* cart and order are not total for this relation so they don't have to be here?*/
+)ENGINE='InnoDB';
+
 CREATE TABLE IF NOT EXISTS orders (
 	order_number	INTEGER PRIMARY KEY AUTO_INCREMENT,
 	order_date	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,21 +46,6 @@ CREATE TABLE IF NOT EXISTS cart_item (
 	quantity	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY (username, isbn)
 ) ENGINE='InnoDB';
-
-CREATE TABLE IF NOT EXISTS user (
-	username 	VARCHAR(32) NOT NULL,
-	PIN 	 	NUMERIC(4,0) NOT NULL,
-	first_name	VARCHAR(32) NOT NULL,
-	last_name	VARCHAR(32) NOT NULL,
-	city		VARCHAR(32) NOT NULL,
-	address		VARCHAR(32) NOT NULL,
-	zip		NUMERIC(5,0) NOT NULL, 
-	state		VARCHAR(32) NOT NULL, /* maybe we could use this http://kimbriggs.com/computers/computer-notes/mysql-notes/mysql-create-state-table.file*/
-	cctype		ENUM('MasterCard','VISA','American Express'), # more?
-	ccnumber	NUMERIC(16), 
-	PRIMARY KEY (username)
-	/* cart and order are not total for this relation so they don't have to be here?*/
-)ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS administrator (
 	username	VARCHAR(32) NOT NULL REFERENCES user (username) ON DELETE CASCADE,
