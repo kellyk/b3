@@ -29,16 +29,6 @@ CREATE TABLE IF NOT EXISTS book(
 	PRIMARY KEY (isbn)
 ) ENGINE='InnoDB';
 
-CREATE TABLE IF NOT EXISTS orders (
-	order_number	INTEGER PRIMARY KEY AUTO_INCREMENT,
-	order_date	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	username	varchar(32) NOT NULL REFERENCES user (username),
-	shipped_date	TIMESTAMP,
-	address_line	VARCHAR(50),
-	address_city	VARCHAR(50),
-	address_state	CHARACTER(2)
-) ENGINE='InnoDB';
-
 CREATE TABLE IF NOT EXISTS author(
 	id INTEGER NOT NULL AUTO_INCREMENT,
 	first_name VARCHAR(255),
@@ -61,6 +51,17 @@ CREATE TABLE IF NOT EXISTS review (
 	PRIMARY KEY (review_number, isbn),
 	FOREIGN KEY (isbn) REFERENCES book
 ) ENGINE='InnoDB';
+
+CREATE TABLE IF NOT EXISTS orders (
+	order_number	INTEGER PRIMARY KEY AUTO_INCREMENT,
+	order_date	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	username	varchar(32) NOT NULL REFERENCES user (username),
+	shipped_date	TIMESTAMP,
+	address_line	VARCHAR(50),
+	address_city	VARCHAR(50),
+	address_state	CHARACTER(2)
+) ENGINE='InnoDB';
+
 
 CREATE TABLE IF NOT EXISTS line_item (
 	order_number	INTEGER NOT NULL REFERENCES orders (order_number),
