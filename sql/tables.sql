@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS orders (
 
 CREATE TABLE IF NOT EXISTS line_item (
 	order_number	INTEGER NOT NULL REFERENCES orders (order_number),
-	isbn		VARCHAR(11) NOT NULL REFERENCES book (isbn),
+	isbn		INTEGER NOT NULL REFERENCES book (isbn),
 	quantity	INTEGER NOT NULL,
 	unit_price	NUMERIC(8,2) NOT NULL,
 	PRIMARY KEY (order_number, isbn)
