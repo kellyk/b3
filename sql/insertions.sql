@@ -36,7 +36,7 @@ INSERT INTO administrator VALUES('Bill', '2012-01-01');
 INSERT INTO administrator VALUES('Ahmed', '2013-03-12');
 
 /* phone_number */
-INSERT INTO administrator VALUES('Sue', '1238742937');
-INSERT INTO administrator VALUES('Sue', '4238793127');
-INSERT INTO administrator VALUES('Bill', '9338747122');
-INSERT INTO administrator VALUES('Ahmed', '3874122929');
+INSERT INTO phone_number VALUES('Sue', '1238742937');
+INSERT INTO phone_number VALUES('Sue', '4238793127');
+INSERT INTO phone_number VALUES('Bill', '9338747122');
+INSERT INTO phone_number VALUES('Ahmed', '3874122929');
