@@ -16,6 +16,19 @@ CREATE TABLE IF NOT EXISTS user (
 	/* cart and order reference this table */
 )ENGINE='InnoDB';
 
+CREATE TABLE IF NOT EXISTS book(
+	isbn INTEGER NOT NULL,
+	title VARCHAR(255),
+	category VARCHAR(50),
+	publisher VARCHAR(255),
+	deleted BOOLEAN,
+	inventory_quantity SMALLINT,
+	inventory_minimum	 SMALLINT,
+	year_published SMALLINT,
+	price DECIMAL(6,2),
+	PRIMARY KEY (isbn)
+) ENGINE='InnoDB';
+
 CREATE TABLE IF NOT EXISTS orders (
 	order_number	INTEGER PRIMARY KEY AUTO_INCREMENT,
 	order_date	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -24,6 +37,29 @@ CREATE TABLE IF NOT EXISTS orders (
 	address_line	VARCHAR(50),
 	address_city	VARCHAR(50),
 	address_state	CHARACTER(2)
+) ENGINE='InnoDB';
+
+CREATE TABLE IF NOT EXISTS author(
+	id INTEGER NOT NULL AUTO_INCREMENT,
+	first_name VARCHAR(255),
+	last_name VARCHAR(255),
+	PRIMARY KEY (id)
+) ENGINE='InnoDB';
+
+CREATE TABLE IF NOT EXISTS wrote(
+	isbn INTEGER NOT NULL,
+	author_id INTEGER NOT NULL,
+	PRIMARY KEY (isbn, author_id),
+	FOREIGN KEY (isbn) REFERENCES book,
+	FOREIGN KEY (author_id) REFERENCES author(id)
+) ENGINE='InnoDB';
+
+CREATE TABLE IF NOT EXISTS review (
+	review_number INTEGER NOT NULL AUTO_INCREMENT,
+	isbn INTEGER NOT NULL,
+	review_text BLOB,
+	PRIMARY KEY (review_number, isbn),
+	FOREIGN KEY (isbn) REFERENCES book
 ) ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS line_item (
