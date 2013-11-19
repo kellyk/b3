@@ -1,6 +1,7 @@
 START TRANSACTION;
 BEGIN;
 
+/* MySql implicitly creates indexes on primary keys */
 CREATE TABLE IF NOT EXISTS user (
 	username 	VARCHAR(32) NOT NULL,
 	PIN 	 	NUMERIC(4,0) NOT NULL,
@@ -29,12 +30,16 @@ CREATE TABLE IF NOT EXISTS book(
 	PRIMARY KEY (isbn)
 ) ENGINE='InnoDB';
 
+CREATE INDEX book_title ON book (title);
+
 CREATE TABLE IF NOT EXISTS author(
 	id 		INTEGER NOT NULL AUTO_INCREMENT,
 	first_name 	VARCHAR(255),
 	last_name 	VARCHAR(255),
 	PRIMARY KEY (id)
 ) ENGINE='InnoDB';
+
+CREATE INDEX author_last_name ON author (last_name);
 
 CREATE TABLE IF NOT EXISTS wrote(
 	isbn 		VARCHAR(13) NOT NULL,
@@ -44,6 +49,7 @@ CREATE TABLE IF NOT EXISTS wrote(
 	FOREIGN KEY (author_id) REFERENCES author(id)
 ) ENGINE='InnoDB';
 
+
 CREATE TABLE IF NOT EXISTS review (
 	review_number 		INTEGER NOT NULL AUTO_INCREMENT,
 	isbn 			VARCHAR(13) NOT NULL,
@@ -51,6 +57,8 @@ CREATE TABLE IF NOT EXISTS review (
 	PRIMARY KEY (review_number, isbn),
 	FOREIGN KEY (isbn) REFERENCES book (isbn)
 ) ENGINE='InnoDB';
+
+CREATE INDEX review_isbn ON review (isbn);
 
 CREATE TABLE IF NOT EXISTS orders (
 	order_number	INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -64,6 +72,8 @@ CREATE TABLE IF NOT EXISTS orders (
 	cctype		ENUM('MasterCard','VISA','American Express', 'Discover'),
 	ccnumber	NUMERIC(16)
 ) ENGINE='InnoDB';
+
+CREATE INDEX orders_username ON orders(username);
 
 
 CREATE TABLE IF NOT EXISTS line_item (
