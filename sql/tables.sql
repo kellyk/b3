@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS user (
 )ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS book(
-	isbn 			INTEGER NOT NULL,
+	isbn 			VARCHAR(13) NOT NULL,
 	title 			VARCHAR(255),
 	category		VARCHAR(50),
 	publisher 		VARCHAR(255),
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS author(
 ) ENGINE='InnoDB';
 
 CREATE TABLE IF NOT EXISTS wrote(
-	isbn 		INTEGER NOT NULL,
+	isbn 		VARCHAR(13) NOT NULL,
 	author_id 	INTEGER NOT NULL,
 	PRIMARY KEY (isbn, author_id),
 	FOREIGN KEY (isbn) REFERENCES book (isbn),
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS wrote(
 
 CREATE TABLE IF NOT EXISTS review (
 	review_number 		INTEGER NOT NULL AUTO_INCREMENT,
-	isbn 			INTEGER NOT NULL,
+	isbn 			VARCHAR(13) NOT NULL,
 	review_text 		TEXT,
 	PRIMARY KEY (review_number, isbn),
 	FOREIGN KEY (isbn) REFERENCES book (isbn)
@@ -59,13 +59,16 @@ CREATE TABLE IF NOT EXISTS orders (
 	shipped_date	TIMESTAMP,
 	address_line	VARCHAR(50),
 	address_city	VARCHAR(50),
-	address_state	CHARACTER(2)
+	address_state	CHARACTER(2),
+	address_zip	NUMERIC(5,0), 
+	cctype		ENUM('MasterCard','VISA','American Express', 'Discover'),
+	ccnumber	NUMERIC(16)
 ) ENGINE='InnoDB';
 
 
 CREATE TABLE IF NOT EXISTS line_item (
 	order_number	INTEGER NOT NULL REFERENCES orders (order_number),
-	isbn		INTEGER NOT NULL REFERENCES book (isbn),
+	isbn		VARCHAR(13) NOT NULL REFERENCES book (isbn),
 	quantity	INTEGER NOT NULL,
 	unit_price	NUMERIC(8,2) NOT NULL,
 	PRIMARY KEY (order_number, isbn)
@@ -79,7 +82,7 @@ CREATE TABLE IF NOT EXISTS cart (
 
 CREATE TABLE IF NOT EXISTS cart_item (
 	username	VARCHAR(32) NOT NULL REFERENCES cart (username) ON DELETE CASCADE,
-	isbn		INTEGER NOT NULL REFERENCES book (isbn) ON DELETE CASCADE,
+	isbn		VARCHAR(13) NOT NULL REFERENCES book (isbn) ON DELETE CASCADE,
 	quantity	INTEGER NOT NULL DEFAULT 1,
 	PRIMARY KEY (username, isbn)
 ) ENGINE='InnoDB';
