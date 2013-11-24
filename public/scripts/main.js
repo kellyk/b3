@@ -6,4 +6,8 @@ $(document).ready(function(){
 		$('.main-nav li').removeClass('active');
 	});
 
+	$('#site_login_submit').click(function(e){
+		e.preventDefault();
+		$('#login_form').submit();
+	});
 });
