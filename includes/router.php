@@ -31,6 +31,8 @@ if (isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
 	//security check that method exists and execute
 	if(method_exists($page, $method))
 		$page->$method();
+	else
+		$page->missing_controller();
 
 } else
 	include_once('home.php');

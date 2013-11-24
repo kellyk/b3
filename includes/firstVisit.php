@@ -10,7 +10,7 @@ $(document).ready(function() {
 	// between logging in, registering, or searching. Otherwise just let them hit the search screen.
 	if(typeof(Storage)!=="undefined") {
 		var db = db || localStorage;
-		if (!db.entryScreenShown) {
+		if (!db.entryScreenShown && $('.pnf').length == 0) {
 			$('#firstScreenModal').modal("show");
 			db.entryScreenShown = true;
 		}
@@ -39,7 +39,7 @@ $(document).ready(function() {
 });
 </script>
 <!-- -->
-<div id="firstScreenModal" class="modal fade">
+<div id="firstScreenModal" class="modal fade" style="display: none">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
