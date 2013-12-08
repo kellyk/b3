@@ -36,6 +36,7 @@ class Admin extends BaseController {
 		}
 
 		$bookModel->createBook($args);
+		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 
 	public function update_book() {
