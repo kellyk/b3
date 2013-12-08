@@ -26,4 +26,16 @@ class UserModel extends BaseModel {
 		$data = $this->performQuery($sql);
 		return $data;
 	}
+
+	public function isAdministrator($username) {
+		$sql = "SELECT *
+			FROM administrator
+			WHERE administrator.username = '$username';";
+
+		$data = $this->performQuery($sql);
+		if ($data[0]) {
+			return true;
+		}
+		return false;
+	}
 }
