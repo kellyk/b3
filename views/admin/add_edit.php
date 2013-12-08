@@ -1,10 +1,10 @@
 <div>
 	<div id="insert_new_book" >
-		<form role="form">
+		<form role="form" action="<?php echo $isbn ? "update_book" : "create_book"; ?>" method="post">
 			<div class="form-group">
 				<label for="isbn">ISBN:</label>
-				<?php if(isset($_GET['isbn'])) : ?>
-				<input type="text" name="isbn" class="form-control" id="isbn" value="<?php echo $_GET['isbn']; ?>" disabled />
+				<?php if($isbn) : ?>
+				<input type="text" name="isbn" class="form-control" id="isbn" value="<?php echo $isbn; ?>" disabled />
 				<?php else : ?>
 				<input type="text" name="isbn" class="form-control" id="isbn" />
 				<?php endif; ?>

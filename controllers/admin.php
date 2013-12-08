@@ -16,14 +16,33 @@ class Admin extends BaseController {
 		require_once('views/admin/login.php');
 	}
 
+/**************** Catalog manipulation  sub pages *************************/
 	public function catalog() {
 		$this->_admin_skin('views/admin/catalog.php');
 	}
 
-	public function add_edit() {
+	public function add_edit($isbn) {
 		$this->_admin_skin('views/admin/add_edit.php');
 	}
 
+	public function create_book() {
+		require_once('models/book.php');
+		$bookModel = new BookModel();
+		
+		foreach (array_keys($bookModel->book_def) as $col) {
+			if (isset($_POST[$col]) && $_POST[$col] != '') {
+				$args[$col] = $_POST[$col];
+			}
+		}
+
+		$bookModel->createBook($args);
+	}
+
+	public function update_book() {
+
+	}
+/***************************************************************************/
+	
 	public function search() {
 		$this->_admin_skin('views/search.php');
 	}
