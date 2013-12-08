@@ -33,4 +33,9 @@ class Login extends BaseController {
 			header('Location: ' . SITE_ROOT . 'login?message=' . urlencode($message));
 		}
 	}
+
+	public function logout() {
+		session_destroy();
+		header('Location: ' . SITE_ROOT . 'login');
+	}
 }
