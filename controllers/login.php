@@ -16,16 +16,14 @@ class Login extends BaseController {
 		$username = $_POST['username'];
 		$pin      = $_POST['pin'];
 
-	 	$stmt = $this->connection->prepare(
-			"SELECT username FROM user WHERE username = ? AND PIN = ?"
-		);
-		$stmt->bind_param('sd', $username, $pin);
-		$stmt->execute();
-		$stmt->bind_result($username_found);
 
-		if ($stmt->fetch()) {
+		require_once('models/user.php');
+		$userModel = new UserModel();
+		$userData = $userModel->authenticate($username, $pin);
+		
+		if ($userData[0]) {
 			$_SESSION['logged_in'] = 1;
-			$_SESSION['username'] = $username_found;
+			$_SESSION['username'] = $userData[0]['username'];
 			header('Location: ' . SITE_ROOT . 'search');
 		}
 		else {
