@@ -35,7 +35,7 @@
 			<li><a href="<?php echo SITE_ROOT; ?>login">Login / Register</a></li>
 			<?php } else { ?>
 			<li><a href="">Hello, <?php echo $_SESSION['username']; ?></a></li>
-			<li><a href="login/logout">Logout</a></li>
+			<li><a href="<?php echo SITE_ROOT; ?>login/logout">Logout</a></li>
 			<?php } ?>
 		</ul>
 	</nav>

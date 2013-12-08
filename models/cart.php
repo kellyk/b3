@@ -16,13 +16,19 @@ class CartModel extends BaseModel {
 	    		AND cart_item.username = '$username'
 	    		GROUP by book.isbn;";
 
-		$data = $this->performQuery($sql);
+		$data['books'] = $this->performQuery($sql);
+
+	    // compute the total price for each book, depending on the number of copies
+		foreach ($data['books'] as &$book) {
+			$book['total'] = $book['price'] * $book['quantity'];
+			$data['total'] += $book['total'];
+		}
 
 		return $data;
 	}
 
 	public function addBook($isbn) {
-		// need to check and see if this user already has this book in their cart
+		// need to check if this user already has a copy of this book in their cart
 		$result = $this->checkForDuplicate($isbn);
 
 		if ($result) { // If so, the returned value is the quantity. Increment and update
@@ -32,6 +38,16 @@ class CartModel extends BaseModel {
 			$this->addNewBook($isbn);
 		}
 
+		return;
+	}
+
+	public function removeBook($isbn) {
+		$sql = "DELETE FROM cart_item 
+				WHERE username = '{$_SESSION['username']}'
+				AND isbn = '{$isbn}'
+				;";
+
+		$result = $this->performWrite($sql);
 		return;
 	}
 
@@ -49,7 +65,7 @@ class CartModel extends BaseModel {
 		}
 	}
 
-	private function updateBookQuantity($isbn, $quantity) {
+	public function updateBookQuantity($isbn, $quantity) {
 		$sql = "UPDATE cart_item 
 				SET quantity = $quantity
 				WHERE isbn = $isbn

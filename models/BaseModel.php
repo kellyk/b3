@@ -32,12 +32,11 @@ class BaseModel {
 
 	public function performWrite($sql) {
 		$db = $this->connect();
-		$data = array();
 		$result = $db->query($sql);
 
 		if (!$result) {
 		    throw new Exception('There was an error running the query [' . $db->error . ']' . ' (Query: ' . $sql . ')');
-		} 
+		}
 
 		return $result;
 	}
