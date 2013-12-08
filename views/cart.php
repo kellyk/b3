@@ -24,7 +24,7 @@ if (isset($data)) {
 		echo '<td>' . $book['title'] . '</td>';
 		echo '<td>' . $book['first_name'] . ' ' . $book['last_name'] . '</td>';
 		echo '<td>' . $book['year_published'] . '</td>';
-		echo '<td><input class="form-control small-input" type="number" min="0" value="1" />' .
+		echo '<td><input class="form-control small-input" type="number" min="0" value="' . $book['quantity']. '" />' .
 		'<button class="btn btn-sm btn-primary">Update</button></td>';
 		echo '<td>' . $book['price'] . '</td></tr>';
 	}
@@ -43,7 +43,9 @@ if (isset($data)) {
 <?php
 }
 // if no items in cart, display appropriate message
-else {
+else if (isset($error)) {
+	echo $error;
+} else {
 	echo "There are no items in your cart.";
 }
 
