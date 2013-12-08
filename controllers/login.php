@@ -50,7 +50,7 @@ class Login extends BaseController {
 				if ($_POST['insure_admin']) {
 					session_destroy();
 					$message = urlencode("The login credentials provided were invalid.");
-					header('Location: ' . SITE_ROOT . 'admin/login/$message');
+					header('Location: ' . SITE_ROOT . "admin/login/$message");
 				}
 				else {
 					header('Location: ' . SITE_ROOT . 'search');
