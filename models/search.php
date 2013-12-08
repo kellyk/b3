@@ -1,16 +1,16 @@
 <?php
 require_once('BaseModel.php');
 require_once('database/database.php');
-require_once('database/cart.php');
+require_once('database/search.php');
 
-class CartModel extends BaseModel {
+class SearchModel extends BaseModel {
 
 	public function __construct() {
 		parent::__construct();
 	}
 
-	public function getData() {
-		$sql = getCartItems();
+	public function getData($term, $fields, $category) {
+		$sql = getSearchResults($term, $fields, $category);
 		$data = performQuery($sql);
 
 		return $data;

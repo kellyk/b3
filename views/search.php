@@ -2,15 +2,15 @@
 <h3>Search</h3><br />
 <div class="col-md-6">
 <div>
-<form role="form">
+<form role="form" action="/b3/search/results" method="post" >
   	<div class="form-group">
 	    <label for="searchFor">Search for:</label>
-	    <input type="text" class="form-control" id="searchFor" placeholder="ex. Databases">
+	    <input type="text" class="form-control" name="searchFor" id="searchFor" placeholder="ex. Databases">
 	</div>
 	<div class="form-group">
 	    <label for="searchIn">Search in:</label>
-	    <select name="searchIn" id="searchIn" class="form-control" multiple>
-	    	<option value="keyword">Keyword Anywhere</option>
+	    <select name="searchIn[]" id="searchIn" class="form-control" multiple="multiple">
+	    	<option value="keyword" selected>Keyword Anywhere</option>
 	    	<option value="title">Title</option>
 	    	<option value="author">Author</option>
 	    	<option value="publisher">Publisher</option>
@@ -32,7 +32,7 @@
   	</div>
 
   <!--This button auto forwards temporarily -->
-		<a href="<?php echo SITE_ROOT; ?>search/results" class="btn btn-primary">Submit</a>
+		<input type="submit" class="btn btn-primary" value="Submit" />
 </form>
 </div>
 </div>
