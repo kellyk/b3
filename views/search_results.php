@@ -11,8 +11,9 @@
 		// iterate through books array and display in cart
 		foreach ($data as $book) {
 			echo '<tr><td>';
-			echo '<a href="<?php echo SITE_ROOT; ?>cart" class="btn btn-med btn-success search-result-button">Add</a> <br />';
-			echo '<a href="<?php echo SITE_ROOT; ?>search/reviews" class="btn btn-med btn-default search-result-button">Reviews</a></td>';
+			echo '<a href="' . SITE_ROOT . 'cart" class="btn btn-med btn-success search-result-button">Add</a> <br />';
+			echo '<a href="' . SITE_ROOT . 'search/reviews/' . $book['isbn'];
+			echo '" class="btn btn-med btn-default search-result-button">Reviews</a></td>';
 			echo "<td>{$book['title']}<br />";
 			echo "{$book['year_published']}, {$book['publisher']}<br />";
 			echo "<strong>By</strong> {$book['first_name']} {$book['last_name']} <br />";

@@ -25,7 +25,13 @@ class Search extends BaseController {
 		require_once('views/search_results.php');
 	}
 
-	public function reviews() {
+	public function reviews($isbn) {
+		require_once('models/review.php');
+		$model = new ReviewModel();
+
+		$data = $model->getReviews($isbn);
+
+		//load the view
 		require_once('views/reviews.php');
 	}
 }

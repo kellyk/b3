@@ -1,17 +1,20 @@
 <?php include_once('views/global/header.php'); ?>
 <div>
-	<h3>Reviews for <span class="text-primary">SQL Server 2000 for Experienced DBA's</span></h3>
+<?php if (sizeof($data > 0)) { ?>
+	
+	<h3>Reviews for <span class="text-primary"><?php echo $data[0]['title']?></span></h3>
 	<div class="reviews">
-		<div class="well review">
-			<p>Very informative.</p>
-		</div>
-		<div class="well review">
-			<p>Best book ever!</p>
-		</div>
-		<div class="well review">
-			<p>Wasn't worth the money.</p>
-		</div>
+		<?php
+			foreach ($data as $review) {
+				echo '<div class="well review">';
+				echo '<p>' . $review['review_text'] . '</p>';
+				echo '</div>';
+			}
+		?>
 	</div>
+<?php } else { ?>
+	No reviews yet!
+<?php } ?>
 
   <!--This button auto forwards temporarily -->
 		<a href="<?php echo SITE_ROOT; ?>search/results" class="btn btn-primary">Back to Search Results</a>
