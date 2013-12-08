@@ -20,10 +20,12 @@ class Login extends BaseController {
 		$username = $_POST['username'];
 		$pin      = $_POST['pin'];
 
-
-		require_once('models/user.php');
-		$userModel = new UserModel();
-		$userData = $userModel->authenticate($username, $pin);
+		// Insure the pin matches an integer.
+		if (preg_match("/^\d+$/", $pin)) {
+			require_once('models/user.php');
+			$userModel = new UserModel();
+			$userData = $userModel->authenticate($username, $pin);
+		}
 		
 		if ($userData[0]) {
 			$_SESSION['logged_in'] = 1;
@@ -49,7 +51,7 @@ class Login extends BaseController {
 				header('Location: ' . SITE_ROOT . "admin/login/$message");
 			}
 			else {
-				header('Location: ' . SITE_ROOT . "login/error/$message ");
+				header('Location: ' . SITE_ROOT . "login/error/$message");
 			}
 		}
 	}
