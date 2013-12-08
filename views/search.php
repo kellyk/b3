@@ -2,7 +2,7 @@
 <h3>Search</h3><br />
 <div class="col-md-6">
 <div>
-<form role="form" action="/b3/search/results" method="post" >
+<form role="form" action="<?php echo SITE_ROOT ?>search/results" method="post" >
   	<div class="form-group">
 	    <label for="searchFor">Search for:</label>
 	    <input type="text" class="form-control" name="searchFor" id="searchFor" placeholder="ex. Databases">

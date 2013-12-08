@@ -14,25 +14,29 @@ if (isset($data)) {
 		<th>Author</th>
 		<th>Publish Date</th>
 		<th>Quantity</th>
+		<th>Unit Price</th>
 		<th>Price</th>
 	</tr>
 	<?php
 	// iterate through books array and display in cart
-	foreach ($data as $book) {
+	foreach ($data['books'] as $book) {
 		echo '<tr><td><span class="glyphicon glyphicon-remove"></span></td>';
 		echo '<td>' . $book['isbn'] . '</td>';
 		echo '<td>' . $book['title'] . '</td>';
 		echo '<td>' . $book['first_name'] . ' ' . $book['last_name'] . '</td>';
 		echo '<td>' . $book['year_published'] . '</td>';
-		echo '<td><input class="form-control small-input" type="number" min="0" value="' . $book['quantity']. '" />' .
-		'<button class="btn btn-sm btn-primary">Update</button></td>';
-		echo '<td>' . $book['price'] . '</td></tr>';
+		echo '<td><form method="POST" action="' . SITE_ROOT . 'cart/update">' . 
+			'<input type="hidden" name="isbn" value="' . $book['isbn'] . '" />'. 
+			'<input type="number" name="quantity" class="small-input" min="0" value="' . $book['quantity']. '" />' .
+			'<input type="submit" class="btn btn-sm btn-primary" value="Update" /></form></td>';
+		echo '<td>' . $book['price'] . '</td>';
+		echo '<td>' . $book['total'] . '</td></tr>';
 	}
 	?>
 
 	<tr>
-		<td colspan="6" class="right-align">Total</td>
-		<td>$167.98</td>
+		<td colspan="7" class="right-align">Total</td>
+		<td><?php echo $data['total']; ?></td>
 	</tr>
 </table>
 
