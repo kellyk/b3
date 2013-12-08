@@ -1,42 +1,32 @@
 <?php include_once('views/global/header.php'); ?>
 
-
 	<h3>Register!</h3>
-	<form role="form" >
-		<div class = "row col-md-5">
-		  	<div class="form-group">
-		    	<label for="username">Username</label>
-		    	<input type="text" class="form-control" id="username" placeholder="Enter username">
-		  	</div>
-		  	<div class="form-inline">
+		<div class="row">
+
+		<form role="form">
+			<div class="col-lg-5">
 			  	<div class="form-group">
-				    <label for="pin">Pin</label>
-				    <input type="pin" class="form-control" id="pin" placeholder="4-6 digits" required />
+			    	<input type="text" class="form-control" id="username" placeholder="Username">
+			  	</div>
+			  	<div class="form-group">
+				   <input type="text" class="form-control" id="pin" placeholder="Pin (4-6 digits)" required />
 				</div>
 				<div class="form-group">
-				    <label for="verifyPin">Verify pin</label>
-				    <input type="verifyPin" class="form-control" id="verifyPin" required />
+				    <input type="text" class="form-control" id="verifyPin" placeholder="Verify Pin" required />
 				</div>
-			</div><br />
-			<div class="form-group">
-			    <label for="fName">First Name</label>
-			    <input type="fName" class="form-control" id="fName" placeholder="John">
-			</div>
-			<div class="form-group">
-			    <label for="lName">Last Name</label>
-			    <input type="lName" class="form-control" id="lName" placeholder="Smith">
-			</div>
-			<div class="form-group">
-			    <label for="address">Address</label>
-			    <input type="address" class="form-control" id="address" placeholder="123 Main St.">
-			</div>
-			<div class="form-group">
-			    <label for="city">City</label>
-			    <input type="text" class="form-control" id="city" placeholder="Ann Arbor">
-			</div>
-			<div class="form-inline">
 				<div class="form-group">
-				    <label for="state">State</label>
+				    <input type="text" class="form-control" id="fName" placeholder="First Name">
+				</div>
+				<div class="form-group">
+				    <input type="text" class="form-control" id="lName" placeholder="Last Name">
+				</div>
+				<div class="form-group">
+				    <input type="text" class="form-control" id="address" placeholder="Street">
+				</div>
+				<div class="form-group">
+				    <input type="text" class="form-control" id="city" placeholder="City">
+				</div>
+				<div class="form-group">
 				    <select type="text" class="form-control" id="state">
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
@@ -89,29 +79,24 @@
 						<option value="WV">West Virginia</option>
 						<option value="WI">Wisconsin</option>
 						<option value="WY">Wyoming</option>
+				    </select><br />
+				    <input type="text" class="form-control" id="zip" placeholder="Zip Code">
+				</div>
+			</div>
+			<div class="col-lg-1"></div>
+			<div class="col-lg-6">
+				<div class="form-group">
+				    <label for="cc-type">Credit Card</label>
+				    <select class="form-control" id="cc-type">
+				    	<option value="visa">Visa</option>
+				    	<option value="mastercard">Mastercard</option>
+				    	<option value="discover">Discover</option>
 				    </select>
 				</div>
-				<div class="form-group">
-				    <label for="zip">Zip Code</label>
-				    <input type="text" class="form-control" id="zip">
+			    <div class="form-group">
+				    <label for="cc-number">Number</label>
+				    <input type="text" class="form-control" id="cc-number" placeholder="ex. 1234 5678 9012 3456">
 				</div>
-			</div>
-		</div>
-		<div class = "row col-md-1"></div>
-		<div class = "row col-md-6">
-			<div class="form-group">
-			    <label for="cc-type">Credit Card</label>
-			    <select class="form-control" id="cc-type">
-			    	<option value="visa">Visa</option>
-			    	<option value="mastercard">Mastercard</option>
-			    	<option value="discover">Discover</option>
-			    </select>
-			</div>
-		    <div class="form-group">
-			    <label for="cc-number">Number</label>
-			    <input type="text" class="form-control" id="cc-number" placeholder="ex. 1234 5678 9012 3456">
-			</div>
-			<div class="form-inline">
 				<div class="form-group">
 				    <label for="cc-month">Month</label>
 				    <select class="form-control" id="cc-month">
@@ -131,12 +116,12 @@
 				    	<option value="2018">2018</option>
 				    </select>
 				</div>
-			</div> <br />
-			<div class="form-group">
-				<button type="submit" class="btn btn-lg btn-success">Sign up</button>
+				<div class="form-group">
+					<button type="submit" class="btn btn-lg btn-success">Sign up</button>
+				</div>
 			</div>
-			</div>
+		</form>
+
 		</div>
-	</form>
 
 <?php include_once('views/global/footer.php'); ?>
