@@ -72,6 +72,7 @@ class CartModel extends BaseModel {
 				;";
 
 		$result = $this->performWrite($sql);
+
 		return;
 	}
 

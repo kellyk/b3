@@ -11,6 +11,14 @@ class Profile extends BaseController {
 	}
 
 	public function register() {
-		require_once('views/register.php');
+		if (isset($_POST['username'])) {
+			//all fields are required, so if the first one is populated, we can proceed
+
+			// retrieve data from POST
+
+			require_once('views/search.php');
+		} else {
+			require_once('views/register.php');
+		}
 	}
 }
