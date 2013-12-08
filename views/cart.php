@@ -22,8 +22,8 @@ if (isset($data)) {
 		echo '<tr><td><span class="glyphicon glyphicon-remove"></span></td>';
 		echo '<td>' . $book['isbn'] . '</td>';
 		echo '<td>' . $book['title'] . '</td>';
-		echo '<td>' . $book['author'] . '</td>';
-		echo '<td>' . $book['publishDate'] . '</td>';
+		echo '<td>' . $book['first_name'] . ' ' . $book['last_name'] . '</td>';
+		echo '<td>' . $book['year_published'] . '</td>';
 		echo '<td><input class="form-control small-input" type="number" min="0" value="1" />' .
 		'<button class="btn btn-sm btn-primary">Update</button></td>';
 		echo '<td>' . $book['price'] . '</td></tr>';

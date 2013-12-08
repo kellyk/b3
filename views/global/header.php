@@ -3,10 +3,10 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>B3</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo SITE_ROOT_PUBLIC; ?>/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo SITE_ROOT_PUBLIC; ?>/css/style.css" />
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="<?php echo SITE_ROOT_PUBLIC; ?>/scripts/jquery.js"></script>
+	<script src="<?php echo SITE_ROOT_PUBLIC; ?>/scripts/bootstrap.min.js"></script>
 	<script src="<?php echo SITE_ROOT_PUBLIC; ?>/scripts/main.js"></script>
 
 </head>
