@@ -8,7 +8,11 @@ class Login extends BaseController {
 	}
 
 	public function index() {
-		$message = urldecode($_GET['message']);
+		require_once('views/login.php');
+	}
+
+	public function error($message) {
+		$message = urldecode($message);
 		require_once('views/login.php');
 	}
 
@@ -29,12 +33,24 @@ class Login extends BaseController {
 				header('Location: ' . SITE_ROOT . 'admin');
 			}
 			else {
-				header('Location: ' . SITE_ROOT . 'search');
+				if ($_POST['insure_admin']) {
+					session_destroy();
+					$message = urlencode("The login credentials provided were invalid.");
+					header('Location: ' . SITE_ROOT . 'admin/login/$message');
+				}
+				else {
+					header('Location: ' . SITE_ROOT . 'search');
+				}
 			}
 		}
 		else {
-			$message = "The credentials provided were incorrect";
-			header('Location: ' . SITE_ROOT . 'login?message=' . urlencode($message));
+			$message = urlencode("The credentials provided were invalid.");
+			if ($_POST['insure_admin']) {
+				header('Location: ' . SITE_ROOT . "admin/login/$message");
+			}
+			else {
+				header('Location: ' . SITE_ROOT . "login/error/$message ");
+			}
 		}
 	}
 

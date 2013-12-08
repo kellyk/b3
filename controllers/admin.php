@@ -11,7 +11,8 @@ class Admin extends BaseController {
 		$this->_admin_skin('views/admin/blank.php');
 	}
 
-	public function login() {
+	public function login($message) {
+		$message = urldecode($message);
 		require_once('views/admin/login.php');
 	}
 
@@ -46,10 +47,14 @@ class Admin extends BaseController {
 	public function logout() {
 		// log user out and redirect to homepage
 		session_destroy();
-		header( 'Location: ' . SITE_ROOT );
+		header( 'Location: ' . SITE_ROOT . 'admin');
 	}
 
 	public function _admin_skin($view) {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
 		require_once('views/admin/dashboard.php');
 		require_once($view);
 		require_once('views/global/footer.php');
