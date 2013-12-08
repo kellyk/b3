@@ -38,9 +38,17 @@ if (isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
 	else
 		$method = 'index';
 
+	// check for method parameter in URL
+	if (sizeof($segments) > 3 && $segments[3] ){
+		$param = $segments[3];
+	}
+	else
+		$param = '';
+
+
 	//security check that method exists and execute
 	if(method_exists($page, $method))
-		$page->$method();
+		$page->$method($param);
 	else
 		$page->missing_controller();
 
