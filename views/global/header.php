@@ -27,7 +27,12 @@
 		<ul class="main-nav nav nav-tabs pull-down">
 			<li><a href="<?php echo SITE_ROOT; ?>search">Search</a></li>
 			<li><a href="<?php echo SITE_ROOT; ?>cart">Cart</a></li>
+			<?php if (!$_SESSION['logged_in']) { ?>
 			<li><a href="<?php echo SITE_ROOT; ?>login">Login / Register</a></li>
+			<?php } else { ?>
+			<li><a href="">Hello, <?php echo $_SESSION['username']; ?></a></li>
+			<li><a href="login/logout">Logout</a></li>
+			<?php } ?>
 		</ul>
 	</nav>
 
