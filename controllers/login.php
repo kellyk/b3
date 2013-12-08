@@ -24,7 +24,13 @@ class Login extends BaseController {
 		if ($userData[0]) {
 			$_SESSION['logged_in'] = 1;
 			$_SESSION['username'] = $userData[0]['username'];
-			header('Location: ' . SITE_ROOT . 'search');
+			if ($userModel->isAdministrator($userData[0]['username'])) {
+				$_SESSION['administrator'] = 1;
+				header('Location: ' . SITE_ROOT . 'admin');
+			}
+			else {
+				header('Location: ' . SITE_ROOT . 'search');
+			}
 		}
 		else {
 			$message = "The credentials provided were incorrect";
