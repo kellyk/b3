@@ -2,14 +2,15 @@
 
 <div class = "row col-md-5">
 	<h3>Login</h3>
+	<div class="error"><? print $message ?></div>
 	<form id="login_form" action="login/submit" role="form" method="post">
 	  	<div class="form-group">
 	    	<label for="username">Username</label>
-	    	<input type="text" class="form-control" id="username" placeholder="Enter username">
+	    	<input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
 	  	</div>
 	  	<div class="form-group">
 		    <label for="pin">Pin</label>
-		    <input type="pin" class="form-control" id="pin" placeholder="Pin">
+		    <input type="pin" class="form-control" id="pin" name="pin" placeholder="Pin">
 		</div>
 		<!--This button auto forwards temporarily until we have users.
 			Later we will authenticate and redirect as appropriate -->
