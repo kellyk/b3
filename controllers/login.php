@@ -24,7 +24,19 @@ class Login extends BaseController {
 		if (preg_match("/^\d+$/", $pin)) {
 			require_once('models/user.php');
 			$userModel = new UserModel();
-			$userData = $userModel->authenticate($username, $pin);
+			try {
+				$userData = $userModel->authenticate($username, $pin);
+			}
+			catch(Exception $e) {
+				$message = urlencode("Query execution failed: " . $e->getMessage() . ".");
+				if ($_POST['insure_admin']) {
+					header('Location: ' . SITE_ROOT . "admin/login/$message");
+				}
+				else {
+					header('Location: ' . SITE_ROOT . "login/error/$message");
+				}
+				exit();
+			}
 		}
 		
 		if ($userData[0]) {
