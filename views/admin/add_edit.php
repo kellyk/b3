@@ -37,7 +37,7 @@
 				<label for="publisher">Publisher:</label>
 				<input type="text" name="publisher" class="form-control" id="publisher" />
 				<label for="year">Year:</label>
-				<input type="text" name="year" class="form-control" id="year" maxlength="4" />
+				<input type="text" name="year_published" class="form-control" id="year" maxlength="4" />
 			</div>
 			<div class="form-group">
 				<label for="category">Category:</label>
@@ -49,7 +49,7 @@
 				<label for="price">Price:</label>
 				<input type="text" name="price" class="form-control" id="price" />
 				<label for="quantity">Min. Qty Required In-Stock:</label>
-				<input type="text" name="quantity" class="form-control" id="quantity" />
+				<input type="text" name="inventory_minimum" class="form-control" id="quantity" />
 			</div>
 			<div class="form-group">
 				<label for="reviewsBox">Review(s):</label>
@@ -59,7 +59,8 @@
 				<a href="#" class="addReview">Add Review</a><a href="#" class="removeReview">Remove last review</a>
 			</div>
 			<div class="form-group">
-				<input type="button" class="form-control" value="Insert" />
+				<input type="hidden" name="deleted" value="0" />
+				<input type="submit" class="form-control" value="Insert" />
 				<input type="button" class="form-control" value="Cancel" />
 			</div>
 
