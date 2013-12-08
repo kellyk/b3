@@ -13,9 +13,9 @@ GRANT USAGE ON b3.* TO 'kking'@'localhost';
 GRANT USAGE ON b3.* TO 'kjohnson'@'localhost';
 GRANT USAGE ON b3.* TO 'b3site'@'localhost';
 
-GRANT SELECT, INSERT, DELETE, CREATE, ALTER, DROP ON b3.* TO 'rstahl'@'localhost';
-GRANT SELECT, INSERT, DELETE, CREATE, ALTER, DROP ON b3.* TO 'kking'@'localhost';
-GRANT SELECT, INSERT, DELETE, CREATE, ALTER, DROP ON b3.* TO 'kjohnson'@'localhost';
-GRANT SELECT, INSERT, DELETE ON b3.* TO 'b3site'@'localhost';
+GRANT SELECT, INSERT, DELETE, UPDATE, CREATE, ALTER, DROP ON b3.* TO 'rstahl'@'localhost';
+GRANT SELECT, INSERT, DELETE, UPDATE, CREATE, ALTER, DROP ON b3.* TO 'kking'@'localhost';
+GRANT SELECT, INSERT, DELETE, UPDATE,CREATE, ALTER, DROP ON b3.* TO 'kjohnson'@'localhost';
+GRANT SELECT, INSERT, DELETE, UPDATE ON b3.* TO 'b3site'@'localhost';
 
 COMMIT;
