@@ -14,7 +14,8 @@
 if (isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
 	$segments = explode('/' , $_SERVER['REQUEST_URI']);
 	// build our class name from URL and load its file
-	$controller = $segments[1];
+	$controller = explode('?', $segments[1]);
+	$controller = $controller[0];
 	$controller_path = "controllers/$controller.php";
 	if (file_exists($controller_path)) {
 		require_once($controller_path);
