@@ -45,6 +45,7 @@ class Admin extends BaseController {
 
 	public function logout() {
 		// log user out and redirect to homepage
+		session_destroy();
 		header( 'Location: ' . SITE_ROOT );
 	}
 
