@@ -66,3 +66,10 @@ input[type="radio"]{
 .cart-controls button, .cart-controls a{
 	margin-right: 1em;
 }
+
+.error {
+	background-color: #FA5F4B;
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 5px;
+}

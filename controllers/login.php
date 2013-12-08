@@ -8,7 +8,11 @@ class Login extends BaseController {
 	}
 
 	public function index() {
-		$message = urldecode($_GET['message']);
+		require_once('views/login.php');
+	}
+
+	public function error($message) {
+		$message = urldecode($message);
 		require_once('views/login.php');
 	}
 
@@ -16,10 +20,24 @@ class Login extends BaseController {
 		$username = $_POST['username'];
 		$pin      = $_POST['pin'];
 
-
-		require_once('models/user.php');
-		$userModel = new UserModel();
-		$userData = $userModel->authenticate($username, $pin);
+		// Insure the pin matches an integer.
+		if (preg_match("/^\d+$/", $pin)) {
+			require_once('models/user.php');
+			$userModel = new UserModel();
+			try {
+				$userData = $userModel->authenticate($username, $pin);
+			}
+			catch(Exception $e) {
+				$message = urlencode("Query execution failed: " . $e->getMessage() . ".");
+				if ($_POST['insure_admin']) {
+					header('Location: ' . SITE_ROOT . "admin/login/$message");
+				}
+				else {
+					header('Location: ' . SITE_ROOT . "login/error/$message");
+				}
+				exit();
+			}
+		}
 		
 		if ($userData[0]) {
 			$_SESSION['logged_in'] = 1;
@@ -29,12 +47,24 @@ class Login extends BaseController {
 				header('Location: ' . SITE_ROOT . 'admin');
 			}
 			else {
-				header('Location: ' . SITE_ROOT . 'search');
+				if ($_POST['insure_admin']) {
+					session_destroy();
+					$message = urlencode("The login credentials provided were invalid.");
+					header('Location: ' . SITE_ROOT . "admin/login/$message");
+				}
+				else {
+					header('Location: ' . SITE_ROOT . 'search');
+				}
 			}
 		}
 		else {
-			$message = "The credentials provided were incorrect";
-			header('Location: ' . SITE_ROOT . 'login?message=' . urlencode($message));
+			$message = urlencode("The credentials provided were invalid.");
+			if ($_POST['insure_admin']) {
+				header('Location: ' . SITE_ROOT . "admin/login/$message");
+			}
+			else {
+				header('Location: ' . SITE_ROOT . "login/error/$message");
+			}
 		}
 	}
 

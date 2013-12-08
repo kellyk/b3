@@ -20,7 +20,7 @@ class BaseModel {
 		$result = $db->query($sql);
 
 		if (!$result) {
-		    die('There was an error running the query [' . $db->error . ']' . ' (Query: ' . $sql . ')');
+			throw new Exception('There was an error running the query [' . $db->error . ']' . ' (Query: ' . $sql . ')');
 		} 
 
 		while($row = $result->fetch_assoc()){
@@ -36,7 +36,7 @@ class BaseModel {
 		$result = $db->query($sql);
 
 		if (!$result) {
-		    die('There was an error running the query [' . $db->error . ']' . ' (Query: ' . $sql . ')');
+		    throw new Exception('There was an error running the query [' . $db->error . ']' . ' (Query: ' . $sql . ')');
 		} 
 
 		return $result;
