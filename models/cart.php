@@ -41,6 +41,16 @@ class CartModel extends BaseModel {
 		return;
 	}
 
+	public function removeBook($isbn) {
+		$sql = "DELETE FROM cart_item 
+				WHERE username = '{$_SESSION['username']}'
+				AND isbn = '{$isbn}'
+				;";
+
+		$result = $this->performWrite($sql);
+		return;
+	}
+
 	private function checkForDuplicate($isbn) {
 		$sql = "SELECT * 
 				FROM cart_item

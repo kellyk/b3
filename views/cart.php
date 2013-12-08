@@ -20,7 +20,7 @@ if (isset($data)) {
 	<?php
 	// iterate through books array and display in cart
 	foreach ($data['books'] as $book) {
-		echo '<tr><td><span class="glyphicon glyphicon-remove"></span></td>';
+		echo '<tr><td><a href="' . SITE_ROOT . 'cart/remove/' . $book['isbn'] . '"><span class="glyphicon glyphicon-remove"></span></a></td>';
 		echo '<td>' . $book['isbn'] . '</td>';
 		echo '<td>' . $book['title'] . '</td>';
 		echo '<td>' . $book['first_name'] . ' ' . $book['last_name'] . '</td>';
