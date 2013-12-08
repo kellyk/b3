@@ -14,9 +14,6 @@
 <div class="container">
 	<div class="page-header">
 	  	<h1>Best Book Buy <small>for all your textbook needs</small></h1>
-	  	<a href="<?php echo SITE_ROOT; ?>admin/login">
-	  		<button id="adminLogin" class="btn btn-primary pull-right">Admin Login</button>
-	  	</a>
  		<button data-toggle="tooltip" title="temp dev tool.. click and refresh to simulate first visit"
  			id="clearStorage" class="btn btn-default pull-right" onclick="localStorage.clear(); return false;"
  			style="margin-right:20px">Clear Local Storage
@@ -25,8 +22,10 @@
 	</div>
 	<nav>
 		<ul class="main-nav nav nav-tabs pull-down">
+			<?php if (!$_SESSION['administrator']) { ?>
 			<li><a href="<?php echo SITE_ROOT; ?>search">Search</a></li>
 			<li><a href="<?php echo SITE_ROOT; ?>cart">Cart</a></li>
+			<?php } ?>
 			<?php if (!$_SESSION['logged_in']) { ?>
 			<li><a href="<?php echo SITE_ROOT; ?>login">Login / Register</a></li>
 			<?php } else { ?>
