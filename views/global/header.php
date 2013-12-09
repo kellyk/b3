@@ -33,8 +33,8 @@
 			<?php } ?>
 			<?php if (!$_SESSION['logged_in']) { ?>
 			<li><a href="<?php echo SITE_ROOT; ?>login">Login / Register</a></li>
-			<?php } else { ?>
-			<li><a href="">Hello, <?php echo $_SESSION['username']; ?></a></li>
+			<?php } else { $link = SITE_ROOT . ($_SESSION['administrator'] ? "admin/profile/$_SESSION[username]" : "profile/$_SESSION[username]"); ?>
+			<li><a href="<?php echo $link; ?>">Hello, <?php echo $_SESSION['username']; ?></a></li>
 			<li><a href="<?php echo SITE_ROOT; ?>login/logout">Logout</a></li>
 			<?php } ?>
 		</ul>

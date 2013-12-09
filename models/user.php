@@ -38,6 +38,15 @@ class UserModel extends BaseModel {
 		return false;
 	}
 
+	public function getAdministrator($username) {
+		return $this->performQuery(
+			"SELECT *
+			FROM user natural join administrator
+			WHERE user.username = '$username';"
+		);
+			
+	}
+
 	public function createUser($data) {
 		$sql = "INSERT INTO user
 				VALUES (

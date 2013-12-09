@@ -3,6 +3,7 @@ require_once('BaseController.php');
 require_once('models/book.php');
 require_once('models/author.php');
 require_once('models/review.php');
+require_once('models/user.php');
 
 class Admin extends BaseController {
 	public function __construct() {
@@ -258,7 +259,11 @@ class Admin extends BaseController {
 		$this->_admin_skin('views/admin/reports.php', $args);
 	}
 
-	public function profile() {
+	public function profile($username) {
+		$userModel = new UserModel();
+	
+		$user = $userModel->getAdministrator($username);
+		$args['user'] = $user[0];
 		$this->_admin_skin('views/admin/profile.php', $args);
 	}
 
