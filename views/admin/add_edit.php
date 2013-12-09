@@ -90,7 +90,6 @@
 			<div class="form-group">
 				<input type="hidden" name="deleted" value="0" />
 				<input type="button" id="add_edit_submit" class="form-control" value="<?php echo $isbn ? "Update" : "Insert";?>" />
-				<input type="button" class="form-control" value="Cancel" />
 			</div>
 
 		</form>
