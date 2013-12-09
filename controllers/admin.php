@@ -86,7 +86,20 @@ class Admin extends BaseController {
 	}
 
 	public function search_results() {
-		$this->_admin_skin('views/admin/search_results.php');
+		require_once('models/adminsearch.php');
+		$model = new AdminSearchModel();
+
+		$searchFor = $_POST['searchFor'];
+		$searchIn = $_POST['searchIn'];
+		$category = $_POST['category'];
+
+		$data = $model->getData($searchFor, $searchIn, $category);
+
+		// load the view
+		require_once('views/admin/search_results.php');
+
+
+		//$this->_admin_skin('views/admin/search_results.php');
 	}
 
 	public function orders() {
