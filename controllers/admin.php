@@ -220,7 +220,7 @@ class Admin extends BaseController {
 		// 	echo $month['sumOrders'];
 		// 	echo date("F", mktime(0, 0, 0,$month['month'], 10)); 
 		// }
-
+echo count(glob(session_save_path() . '/*'));
 		
 		require_once('views/admin/reports.php');
 	}
