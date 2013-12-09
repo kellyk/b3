@@ -10,6 +10,15 @@ class Search extends BaseController {
 		require_once('views/search.php');
 	}
 
+	public function browse() {
+		require_once('models/book.php');
+		$model = new BookModel();
+		$data = $model->getBooks();
+		
+		// load the view
+		require_once('views/search_results.php');
+	}
+
 	public function results($query) {
 		// get data from search model
 		require_once('models/search.php');
