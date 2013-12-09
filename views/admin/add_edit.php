@@ -1,11 +1,12 @@
 <div>
 	<div id="insert_new_book" >
 		<?php $isbn = $args['isbn']; // print_r($args); ?>
-		<form role="form" action="<?php echo SITE_ROOT . "admin/" . ($isbn ? "update_book" : "create_book"); ?>" method="post">
+		<form role="form" action="<?php echo SITE_ROOT . "admin/" . ($isbn ? "update_book" : "create_book"); ?>" method="POST">
 			<div class="form-group">
 				<label for="isbn">ISBN:</label>
 				<?php if($isbn) : ?>
 				<input type="text" name="isbn" class="form-control" id="isbn" value="<?php echo $isbn; ?>" disabled />
+				<input type="hidden" name="isbn" value="<?php echo $isbn; ?>" />
 				<?php else : ?>
 				<input type="text" name="isbn" class="form-control" id="isbn" />
 				<?php endif; ?>
@@ -22,8 +23,8 @@
 								<th>Last Name</th>
 							</tr>
 						</thead>
-						<tbody id="addAuthorList" count="1">
-						<?php if (isset($args['authors'])) {
+						<tbody id="addAuthorList" count="<?php echo count($args['authors']) ? count($args['authors']) : 1; ?>">
+						<?php if ($args['authors']) {
 							$count = 1;
 							foreach ($args['authors'] as $author) { ?>
 							<tr>
@@ -73,10 +74,10 @@
 			</div>
 			<div class="form-group">
 				<label for="reviewsBox">Review(s):</label>
-				<div class="form-group" id="reviewsBox" count="1">
+				<div class="form-group" id="reviewsBox" count="<?php echo count($args['reviews']) ? count($args['reviews']) : 1; ?>">
 				<?php 
 				$count = 1; 
-				if (isset($args['reviews'])) { 
+				if ($args['reviews']) { 
 					foreach ($args['reviews'] as $review) { ?>
 					<textarea name="review<?php echo $count; ?>" class="form-control"><?php echo $review['review_text']; ?></textarea>
 				<?php $count++;} } else { ?>
@@ -87,7 +88,7 @@
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="deleted" value="0" />
-				<input type="submit" class="form-control" value="Insert" />
+				<input type="submit" class="form-control" value="<?php echo $isbn ? "Update" : "Insert";?>" />
 				<input type="button" class="form-control" value="Cancel" />
 			</div>
 

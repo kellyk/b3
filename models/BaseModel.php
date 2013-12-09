@@ -118,4 +118,27 @@ class BaseModel {
 		
 		return $this->performWrite($sql);
 	}
+
+	public function update($id, $col, $val, $table) {
+		$def = $table . "_def";
+		$def = $this->$def;
+		
+		$sql;
+		if ($def[$col] == 'INTEGER' || $def[$col] == 'DECIMAL') {
+			$sql = "UPDATE $table SET $col = $val";
+		}
+		else {
+			$sql = "UPDATE $table SET $col = '$val'";
+		}
+		
+		$id_col = $this->{$table . "_id"};
+		if ($def[$id_col] == 'INTEGER' || $def[$id_col] == 'DECIMAL') {
+			$sql = $sql . "WHERE $id_col = $id;";
+		}
+		else {
+			$sql = $sql . "WHERE $id_col = '$id';";
+		}
+
+		return $this->performWrite($sql);
+	}
 }

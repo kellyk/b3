@@ -27,4 +27,9 @@ class ReviewModel extends BaseModel {
 	public function create($data) {
 		return $this->insert($data, "review");
 	}
+
+	public function delete($id) {
+		$sql = "DELETE FROM review WHERE review_number = $id;";
+		return $this->performWrite($sql);
+	}
 }

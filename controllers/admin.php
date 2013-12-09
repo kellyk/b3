@@ -11,7 +11,7 @@ class Admin extends BaseController {
 
 	public function index() {
 		// load the view
-		$this->_admin_skin('views/admin/blank.php');
+		$this->_admin_skin('views/admin/blank.php', $args);
 	}
 
 	public function login($message) {
@@ -21,7 +21,7 @@ class Admin extends BaseController {
 
 /**************** Catalog manipulation  sub pages *************************/
 	public function catalog() {
-		$this->_admin_skin('views/admin/catalog.php');
+		$this->_admin_skin('views/admin/catalog.php', $args);
 	}
 
 	public function add_edit($isbn) {
@@ -96,7 +96,63 @@ class Admin extends BaseController {
 	}
 
 	public function update_book() {
+		$bookModel = new BookModel();
+		$authorModel = new AuthorModel();
+		$reviewModel = new ReviewModel();
+		
+		$book = $bookModel->getBookByISBN($_POST['isbn']);
+		$authors = $authorModel->getByISBN($_POST['isbn']);
+		$reviews = $reviewModel->getReviews($_POST['isbn']);
+		$book = $book[0];
 
+		if ($book) {
+			foreach (array_keys($bookModel->book_def) as $col) {
+				if (isset($_POST[$col]) && $_POST[$col] != $book[$col]) {
+					$bookModel->update($book['isbn'], $col, $_POST[$col]);
+				}
+			}
+
+			foreach ($authors as $author) {
+				$authorModel->removeWrote($author['id'], $book['isbn']);
+			}
+
+			$count = 1;
+			while ($_POST["firstName$count"] || $_POST["lastName$count"]) {
+				$fname = $_POST["firstName$count"];
+				$lname = $_POST["lastName$count"];
+				$authors = $authorModel->getByName($fname, $lname);
+				if (!$authors[0]) {
+					$authorModel->create(array(
+						"first_name" => $fname,
+						"last_name"  => $lname,
+					));
+	
+					$authors = $authorModel->getByName($fname, $lname);
+				}
+
+				$author = $authors[0];
+				$authorModel->addWrote(array(
+					"isbn"      => $_POST['isbn'],
+					"author_id" => $author['id'],
+				));	
+				
+				$count++;
+			}
+
+			foreach ($reviews as $review) {
+				$reviewModel->delete($review['review_number']);
+			}
+
+			$count = 1;
+			while (isset($_POST["review$count"])) {
+				$reviewModel->create(array(
+					"isbn"        => $_POST['isbn'],
+					"review_text" => $_POST["review$count"],
+				));
+				$count++;
+			}
+		}
+		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 /***************************************************************************/
 	
@@ -122,7 +178,7 @@ class Admin extends BaseController {
 	}
 
 	public function orders() {
-		$this->_admin_skin('views/admin/orders.php');
+		$this->_admin_skin('views/admin/orders.php', $args);
 	}
 
 	public function reports() {
@@ -170,7 +226,7 @@ class Admin extends BaseController {
 	}
 
 	public function profile() {
-		$this->_admin_skin('views/admin/profile.php');
+		$this->_admin_skin('views/admin/profile.php', $args);
 	}
 
 	public function logout() {
