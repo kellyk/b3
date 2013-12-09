@@ -179,7 +179,7 @@ class Admin extends BaseController {
 		$data = $model->getData($searchFor, $searchIn, $category);
 
 		// load the view
-		require_once('views/admin/search_results.php');
+		$this->_admin_skin('views/search_results.php', $data);
 
 
 		//$this->_admin_skin('views/admin/search_results.php');
@@ -250,6 +250,7 @@ echo count(glob(session_save_path() . '/*'));
 		}
 	
 		$args = $args;	
+		$data = $args;
 		require_once('views/admin/dashboard.php');
 		require_once($view);
 		require_once('views/global/footer.php');

@@ -9,11 +9,12 @@
 			</thead>
 		<?php
 		// iterate through books array and display in cart
+		$isAdmin = $_SESSION['administrator'];
 		foreach ($data as $book) {
 			echo '<tr><td>';
-			echo '<a href="' . SITE_ROOT . 'cart/add/' . $book['isbn'] . '" class="btn btn-med btn-success search-result-button">Add</a> <br />';
-			echo '<a href="' . SITE_ROOT . 'search/reviews/' . $book['isbn'];
-			echo '" class="btn btn-med btn-default search-result-button">Reviews</a></td>';
+			echo '<a href="' . SITE_ROOT . ($isAdmin ? 'admin/add_edit/' : 'cart/add/') . $book['isbn'] . '" class="btn btn-med btn-success search-result-button">' . ($isAdmin ? "Edit" : "Add") . '</a> <br />';
+			echo '<a href="' . SITE_ROOT . ($isAdmin ? 'admin/delete_book/' : 'search/reviews/') . $book['isbn'];
+			echo '" class="btn btn-med btn-default search-result-button">' . ($isAdmin ? 'Delete' : 'Reviews') . '</a></td>';
 			echo "<td>{$book['title']}<br />";
 			echo "{$book['year_published']}, {$book['publisher']}<br />";
 			echo "<strong>By</strong> {$book['first_name']} {$book['last_name']} <br />";
