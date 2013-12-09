@@ -4,7 +4,6 @@ $(document).ready(function(){
 
 	$('input[name="credit-card"]').click(function() {
 		if($(this).val() === 'new'){
-			console.log("hi");
 			$('.newCreditCard').show();
 		} else
 			$('.newCreditCard').hide();
@@ -20,14 +19,21 @@ $(document).ready(function(){
 		$('#login_form').submit();
 	});
 
+	$('#searchFor').on('keyup blur focus', function() {
+		if ($(this).val() < 1)
+			$('#searchSubmit').attr('disabled', 'disabled');
+		else
+			$('#searchSubmit').removeAttr('disabled');
+	});
+
 	$('#addAuthor').click(function(e) {
 		e.preventDefault();
 		var authorTable = $('#addAuthorList');
 		var count = authorTable.attr('count') || 1;
 		count++;
 		authorTable.attr('count', count);
-		$('#addAuthorList tr:last').after('<tr><td><input type="text" name="firstName'+ count + '" class="form-control"/></td>'
-			+ '<td><input type="text" name="lastName'+count+'" class="form-control"/></td></tr>'
+		$('#addAuthorList tr:last').after('<tr><td><input type="text" name="firstName'+ count + '" class="form-control"/></td>' +
+			'<td><input type="text" name="lastName'+count+'" class="form-control"/></td></tr>'
 		);
 	});
 
@@ -49,7 +55,7 @@ $(document).ready(function(){
 		count++;
 		reviews.attr('count', count);
 		reviews.find('textarea:last').after('<textarea name="review'+count+'" class="form-control"></textarea>');
-	})
+	});
 
 	$('#removeReview').click(function(e) {
 		e.preventDefault();

@@ -29,16 +29,14 @@
 	    	<option value="art">Art</option>
 	    	<option value="biology">Biology</option>
 	    	<option value="chemistry">Chemistry</option>
-	    	<option value="compsci">Computer Science</option>
-	    	<option value="english">English</option>
+	    	<option value="computer science">Computer Science</option>
 	    	<option value="film">Film</option>
 	    	<option value="math">Mathematics</option>
-	    	<option value="music">Music</option>
 	    </select>
   	</div>
 
   <!--This button auto forwards temporarily -->
-		<input type="submit" class="btn btn-primary" value="Submit" />
+		<input type="submit" id="searchSubmit" class="btn btn-primary" value="Submit" disabled/>
 </form>
 </div>
 </div>
