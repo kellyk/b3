@@ -196,6 +196,32 @@ class Admin extends BaseController {
 
 		$this->_admin_skin('views/admin/orders.php', $args);
 	}
+
+	public function order($isbn) {
+		$bookModel = new BookModel();
+
+		$books = $bookModel->getBookByISBN($isbn);
+		$bookModel->update($isbn, "inventory_quantity", $books[0]['inventory_minimum']);
+		header('Location: ' . SITE_ROOT . "admin/orders");
+	}
+
+
+	public function shipped($order_number) {
+		require_once('models/orders.php');
+		$orderModel = new OrderModel();
+
+		$orderModel->ship($order_number);
+		header('Location: ' . SITE_ROOT . 'admin/orders');
+	}
+
+	public function cancel($order_number) {
+		require_once('models/orders.php');
+		$orderModel = new OrderModel();
+
+		$orderModel->cancel($order_number);
+		header('Location: ' . SITE_ROOT . 'admin/orders');
+		
+	}
 	
 	public function search() {
 		$this->_admin_skin('views/search.php', $args);

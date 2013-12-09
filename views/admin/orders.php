@@ -22,8 +22,8 @@
 		?>
 			<tr>
 				<td>
-					<a href="<?php echo SITE_ROOT . "admin/shipped/$order[order_num]" ;?>" class="form-control btn btn-med" >Shipped</a><br /><br />
-					<a href="<?php echo SITE_ROOT . "admin/canel/$order[order_num]" ; ?>" class="form-control btn btn-med" >Cancel</a>
+					<a href="<?php echo SITE_ROOT . "admin/shipped/$order[order_number]" ;?>" class="form-control btn btn-med" >Shipped</a><br /><br />
+					<a href="<?php echo SITE_ROOT . "admin/cancel/$order[order_number]" ; ?>" class="form-control btn btn-med" >Cancel</a>
 				</td>
 				<td><strong>#<?php echo $order['order_number'];  ?></strong></td>
 				<td>
