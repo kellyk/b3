@@ -82,7 +82,7 @@ class Admin extends BaseController {
 /***************************************************************************/
 	
 	public function search() {
-		$this->_admin_skin('views/search.php');
+		require_once('views/admin/search.php');
 	}
 
 	public function search_results() {
@@ -121,17 +121,17 @@ class Admin extends BaseController {
 		$model = new ReportsModel();
 		$books = $model->getBooksByCategoryTotalNumberDesc();
 
-		foreach ($books as $category) {
-			echo $category['category'];
-			echo $category['books_count'];
-		}
+		// foreach ($books as $category) {
+		// 	echo $category['category'];
+		// 	echo $category['books_count'];
+		// }
 
 
 		$sales = $model->getAvgSalesPerMonth();
-		foreach ($sales as $month) {
-			echo $month['sumOrders'];
-			echo date("F", mktime(0, 0, 0,$month['month'], 10)); 
-		}
+		// foreach ($sales as $month) {
+		// 	echo $month['sumOrders'];
+		// 	echo date("F", mktime(0, 0, 0,$month['month'], 10)); 
+		// }
 
 		
 		require_once('views/admin/reports.php');
