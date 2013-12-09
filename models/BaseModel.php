@@ -133,10 +133,10 @@ class BaseModel {
 		
 		$id_col = $this->{$table . "_id"};
 		if ($def[$id_col] == 'INTEGER' || $def[$id_col] == 'DECIMAL') {
-			$sql = $sql . "WHERE $id_col = $id;";
+			$sql = $sql . " WHERE $id_col = $id;";
 		}
 		else {
-			$sql = $sql . "WHERE $id_col = '$id';";
+			$sql = $sql . " WHERE $id_col = '$id';";
 		}
 
 		return $this->performWrite($sql);

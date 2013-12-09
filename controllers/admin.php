@@ -99,6 +99,28 @@ class Admin extends BaseController {
 		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 
+	public function delete_book($isbn) {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
+
+		$bookModel = new BookModel();
+		$bookModel->update($isbn, "deleted", 1);
+		header('Location: ' . SITE_ROOT . 'admin/search');
+	}
+
+	public function activate_book($isbn) {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
+
+		$bookModel = new BookModel();
+		$bookModel->update($isbn, "deleted", 0);
+		header('Location: ' . SITE_ROOT . 'admin/search');
+	}
+
 	public function update_book() {
 		if ($_SESSION['administrator'] != 1) {
 			header('Location: ' . SITE_ROOT . 'admin/login');
