@@ -14,7 +14,7 @@ class Cart extends BaseController {
 			$model = new CartModel();
 			$data = $model->getCartItems($_SESSION['username']);
 		} else {
-			$error = "Please log in to view your cart!";
+			$error_message = "Please log in to view your cart!";
 		}
 
 		// load the view
@@ -62,6 +62,23 @@ class Cart extends BaseController {
 	}
 
 	public function checkout() {
+		if (isset($_SESSION['username'])){
+
+			// get the list of books in the cart
+			require_once('models/cart.php');
+			$cart = new CartModel();
+			$data = $cart->getCartItems($_SESSION['username']);
+
+			// get the user's shipping information
+			require_once('models/user.php');
+			$userModel = new UserModel();
+			$user = $userModel->getUser($_SESSION['username']);
+			$user = $user[0];
+			// get the user's credit card information
+
+		} else {
+			$error = "Please log in to place an order!";
+		}
 		require_once('views/checkout.php');
 	}
 }

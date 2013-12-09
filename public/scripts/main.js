@@ -2,6 +2,15 @@ $(document).ready(function(){
 
 	$('#clearStorage').tooltip('show');
 
+	$('input[name="credit-card"]').click(function() {
+		if($(this).val() === 'new'){
+			console.log("hi");
+			$('.newCreditCard').show();
+		} else
+			$('.newCreditCard').hide();
+
+	});
+
 	$('.main-nav li').click(function(e){
 		$('.main-nav li').removeClass('active');
 	});

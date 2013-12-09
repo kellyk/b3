@@ -10,8 +10,7 @@ class UserModel extends BaseModel {
 	public function getUser($username) {
 		$sql = "SELECT *
 	    		FROM user
-	    		WHERE user.username = $username;";
-		
+	    		WHERE user.username = '{$username}';";
 
 		$data = $this->performQuery($sql);
 		return $data;
