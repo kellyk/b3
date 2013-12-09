@@ -5,6 +5,18 @@ class BookModel extends BaseModel {
 
 	public function __construct() {
 		parent::__construct();
+		
+		$this->book_def = array(
+			"isbn"               => "STRING",
+			"title"              => "STRING",
+			"category"           => "STRING",
+			"publisher"          => "STRING",
+			"deleted"            => "INTEGER",
+			"inventory_quantity" => "INTEGER",
+			"inventory_minimum"  => "INTEGER",
+			"year_published"     => "INTEGER",
+			"price"              => "DECIMAL",
+		);
 	}
 
 	// return all books in database
@@ -71,4 +83,10 @@ class BookModel extends BaseModel {
 	    $data = $this->performQuery($sql);
 		return $data;
 	}
+
+	//Create book. Parameter is an associative array.
+	function createBook($details) {
+		return $this->insert($details, "book");
+	}
+
 }
