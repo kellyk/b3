@@ -287,6 +287,20 @@ class Admin extends BaseController {
 		header('Location: ' . SITE_ROOT . "admin");
 	}
 
+	public function profile_create() {
+		$userModel = new UserModel();
+		
+		foreach (array_keys($userModel->user_def) as $col) {
+			if (isset($_POST[$col]) && $_POST[$col] != '') {
+				$args[$col] = $_POST[$col];
+			}
+		}
+
+		$userModel->insert($args, "user");
+		$userModel->insert(array("username" => $_POST['username'], "hire_date" => $_POST['hire_date']), "administrator");
+		header('Location: ' SITE_ROOT . "admin");
+	}
+
 	public function logout() {
 		// log user out and redirect to homepage
 		session_destroy();

@@ -11,7 +11,7 @@
 			<input class="form-control" type="text" id="username_disabled" value="<?php echo $user[username]; ?>" disabled />
 			<input type="hidden" id="username" name="username" value="<?php echo $user[username]; ?>" />
 			<?php } else { ?>
-			<input class="form-control" type="text" id="username" value="" />
+			<input class="form-control" type="text" name="username" id="username" value="" />
 			<?php } ?>
 			<label for="newPin">New PIN:</label>
 			<input class="form-control" type="password" id="newPin" name="PIN" value="*****" />
