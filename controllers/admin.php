@@ -113,7 +113,47 @@ class Admin extends BaseController {
 	}
 
 	public function reports() {
-		$this->_admin_skin('views/admin/reports.php');
+		
+		// this counts the sessions within in a given idletime
+
+		define("MAX_IDLE_TIME", 3); 
+		
+		$count = 0;
+		
+		if ( $directory_handle = opendir( session_save_path() ) ) { 
+			 echo readdir($directory_handle);
+			while ( false !== ( $file = readdir( $directory_handle ) ) ) { 
+				if($file != '.' && $file != '..'){ 
+					if(time()- fileatime(session_save_path() . '\\' . $file) < MAX_IDLE_TIME * 60) { 
+						$count++; 
+					} 
+				} 
+				closedir($directory_handle); 
+			}
+			
+		} else { 
+			echo "cannot read session_save_path ";
+			echo session_save_path(); 
+	} 
+		
+		require_once('models/reports.php');
+		$model = new ReportsModel();
+		$books = $model->getBooksByCategoryTotalNumberDesc();
+
+		foreach ($books as $category) {
+			echo $category['category'];
+			echo $category['books_count'];
+		}
+
+
+		$sales = $model->getAvgSalesPerMonth();
+		foreach ($sales as $month) {
+			echo $month['sumOrders'];
+			echo date("F", mktime(0, 0, 0,$month['month'], 10)); 
+		}
+
+		
+		require_once('views/admin/reports.php');
 	}
 
 	public function profile() {
