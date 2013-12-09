@@ -31,7 +31,7 @@ class Admin extends BaseController {
 		require_once('models/review.php');
 		$bookModel = new BookModel();
 		$authorModel = new AuthorModel();
-		
+		$reviewModel = new ReviewModel();
 		
 		foreach (array_keys($bookModel->book_def) as $col) {
 			if (isset($_POST[$col]) && $_POST[$col] != '') {
@@ -65,6 +65,13 @@ class Admin extends BaseController {
 		}
 
 		$count = 1;
+		while ($_POST["review$count"]) {
+			$reviewModel->create(array(
+				"isbn"        => $_POST['isbn'],
+				"review_text" => $_POST["review$count"],
+			));
+			$count++;
+		}
 		
 		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}

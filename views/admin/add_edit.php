@@ -1,6 +1,6 @@
 <div>
 	<div id="insert_new_book" >
-		<form role="form" action="<?php echo $isbn ? "update_book" : "create_book"; ?>" method="post">
+		<form role="form" action="<?php echo SITE_ROOT . "admin/" . ($isbn ? "update_book" : "create_book"); ?>" method="post">
 			<div class="form-group">
 				<label for="isbn">ISBN:</label>
 				<?php if($isbn) : ?>
@@ -55,10 +55,10 @@
 			</div>
 			<div class="form-group">
 				<label for="reviewsBox">Review(s):</label>
-				<div class="form-group" id="reviewsBox">
-					<textarea name="review" class="form-control"></textarea>
+				<div class="form-group" id="reviewsBox" count="1">
+					<textarea name="review1" class="form-control"></textarea>
 				</div>
-				<a href="#" class="addReview">Add Review</a><a href="#" class="removeReview">Remove last review</a>
+				<a href="#" id="addReview" class="addReview">Add Review</a><a href="#" id="removeReview" class="removeReview">Remove last review</a>
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="deleted" value="0" />

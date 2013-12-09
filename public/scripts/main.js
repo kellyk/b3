@@ -32,4 +32,24 @@ $(document).ready(function(){
 			$('#addAuthorList tr:last').remove();
 		}
 	});
+
+	$('#addReview').click(function(e) {
+		e.preventDefault();
+		var reviews = $('#reviewsBox');
+		var count = reviews.attr('count') || 1;
+		count++;
+		reviews.attr('count', count);
+		reviews.find('textarea:last').after('<textarea name="review'+count+'" class="form-control"></textarea>');
+	})
+
+	$('#removeReview').click(function(e) {
+		e.preventDefault();
+		var reviews = $('#reviewsBox');
+		var count = reviews.attr('count') || 1;
+		if (count > 1) {
+			count--;
+			reviews.attr('count', count);
+			reviews.find('textarea:last').remove();
+		}
+	});
 });
