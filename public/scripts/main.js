@@ -52,4 +52,7 @@ $(document).ready(function(){
 			reviews.find('textarea:last').remove();
 		}
 	});
+
+	var category = $('#editCategory');
+	category.val(category.attr('set_to'));
 });

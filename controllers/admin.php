@@ -1,5 +1,8 @@
 <?php
 require_once('BaseController.php');
+require_once('models/book.php');
+require_once('models/author.php');
+require_once('models/review.php');
 
 class Admin extends BaseController {
 	public function __construct() {
@@ -22,13 +25,29 @@ class Admin extends BaseController {
 	}
 
 	public function add_edit($isbn) {
-		$this->_admin_skin('views/admin/add_edit.php');
+		$bookModel = new BookModel();
+		$authorModel = new AuthorModel();
+		$reviewModel = new ReviewModel();
+
+		$args;
+		if ($isbn) {
+			$books = $bookModel->getBookByISBN($isbn);
+		}
+		if ($books[0]) {
+			$book = $books[0];
+			$reviews = $reviewModel->getReviews($isbn);
+			$authors = $authorModel->getByISBN($isbn);
+			$args = array(
+				"isbn"    => $isbn,
+				"book"    => $book,
+				"reviews" => $reviews,
+				"authors" => $authors
+			);
+		}
+		$this->_admin_skin('views/admin/add_edit.php', $args);
 	}
 
 	public function create_book() {
-		require_once('models/book.php');
-		require_once('models/author.php');
-		require_once('models/review.php');
 		$bookModel = new BookModel();
 		$authorModel = new AuthorModel();
 		$reviewModel = new ReviewModel();
@@ -107,11 +126,13 @@ class Admin extends BaseController {
 		header( 'Location: ' . SITE_ROOT . 'admin');
 	}
 
-	public function _admin_skin($view) {
+	public function _admin_skin($view, $args) {
 		if ($_SESSION['administrator'] != 1) {
 			header('Location: ' . SITE_ROOT . 'admin/login');
 			exit();
 		}
+	
+		$args = $args;	
 		require_once('views/admin/dashboard.php');
 		require_once($view);
 		require_once('views/global/footer.php');
