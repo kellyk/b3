@@ -86,6 +86,15 @@ class BookModel extends BaseModel {
 		return $data;
 	}
 
+	function inventoryNeeded() {
+		return $this->performQuery("
+			SELECT *
+			FROM book
+			WHERE inventory_quantity < inventory_minimum
+			OR inventory_quantity IS NULL;"
+		);
+	}
+
 	//Create book. Parameter is an associative array.
 	function createBook($details) {
 		return $this->insert($details, "book");

@@ -185,6 +185,17 @@ class Admin extends BaseController {
 		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 /***************************************************************************/
+
+	public function orders() {
+		require_once('models/orders.php');
+		$orderModel = new OrderModel();
+		$bookModel  = new BookModel();
+		
+		$args['orders'] = $orderModel->getOrdersDetails();
+		$args['needs']  = $bookModel->inventoryNeeded();
+
+		$this->_admin_skin('views/admin/orders.php', $args);
+	}
 	
 	public function search() {
 		$this->_admin_skin('views/search.php', $args);
@@ -205,10 +216,6 @@ class Admin extends BaseController {
 
 
 		//$this->_admin_skin('views/admin/search_results.php');
-	}
-
-	public function orders() {
-		$this->_admin_skin('views/admin/orders.php', $args);
 	}
 
 	public function reports() {
