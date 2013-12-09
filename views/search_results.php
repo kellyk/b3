@@ -1,6 +1,6 @@
 <?php include_once('views/global/header.php'); ?>
 <div>
-	<h3>Results for <span class="text-primary">Databases in <i>Keyword Anywhere</i></span></h3>
+	<h3>Results for search <span class="text-primary"><?php echo $searchFor ?> <i></i></span></h3>
 	<?php if (!empty($data)) { ?>
 		<table class="table">
 			<thead>
