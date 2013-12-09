@@ -1,5 +1,11 @@
 <?php include_once('views/global/header.php'); ?>
 <h3>Search</h3><br />
+
+<?php
+	if ($success_message) {
+		echo '<div class="alert alert-success">' . $success_message. '</div>';
+	}
+?>
 <div class="col-md-6">
 <div>
 <form role="form" action="<?php echo SITE_ROOT ?>search/results" method="post" >

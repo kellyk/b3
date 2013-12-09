@@ -2,14 +2,18 @@
 
 	<h3>Register!</h3>
 		<div class="row">
-
+		<?php 
+			if ($error_message) {
+				echo '<div class="alert alert-danger">' . $error_message. '</div>';
+			}
+		?>
 		<form role="form" method="POST" action="<?php echo SITE_ROOT ?>profile/register">
 			<div class="col-lg-5">
 			  	<div class="form-group">
 			    	<input type="text" name="username" class="form-control" placeholder="Username" required />
 			  	</div>
 			  	<div class="form-group">
-				   <input type="text" name="pin" class="form-control" placeholder="Pin (4-6 digits)" required />
+				   <input type="text" name="pin" class="form-control" placeholder="Pin (digits only)" required />
 				</div>
 				<div class="form-group">
 				    <input type="text" name="repin" class="form-control" placeholder="Verify Pin" required />
