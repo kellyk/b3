@@ -48,6 +48,10 @@ class Admin extends BaseController {
 	}
 
 	public function create_book() {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
 		$bookModel = new BookModel();
 		$authorModel = new AuthorModel();
 		$reviewModel = new ReviewModel();
@@ -96,6 +100,10 @@ class Admin extends BaseController {
 	}
 
 	public function update_book() {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
 		$bookModel = new BookModel();
 		$authorModel = new AuthorModel();
 		$reviewModel = new ReviewModel();
