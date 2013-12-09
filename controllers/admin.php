@@ -165,7 +165,7 @@ class Admin extends BaseController {
 /***************************************************************************/
 	
 	public function search() {
-		require_once('views/admin/search.php');
+		$this->_admin_skin('views/search.php', $args);
 	}
 
 	public function search_results() {
