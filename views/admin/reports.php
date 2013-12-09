@@ -1,4 +1,8 @@
-<?php include_once('views/global/header.php'); ?>
+<?php 
+	$count = $args['count'];
+	$books = $args['books'];
+	$sales = $args['sales'];
+?>
 <div>
 	
  <!--Total number of customers in the system at the time and date of inquiry.
@@ -45,7 +49,3 @@ Currently there are <?php echo $count ?> user online.
 
 
 </div>
-
-
-
-<?php include_once('views/global/footer.php'); ?>

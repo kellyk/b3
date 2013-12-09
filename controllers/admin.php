@@ -1,5 +1,8 @@
 <?php
 require_once('BaseController.php');
+require_once('models/book.php');
+require_once('models/author.php');
+require_once('models/review.php');
 
 class Admin extends BaseController {
 	public function __construct() {
@@ -8,7 +11,7 @@ class Admin extends BaseController {
 
 	public function index() {
 		// load the view
-		$this->_admin_skin('views/admin/blank.php');
+		$this->_admin_skin('views/admin/blank.php', $args);
 	}
 
 	public function login($message) {
@@ -18,17 +21,37 @@ class Admin extends BaseController {
 
 /**************** Catalog manipulation  sub pages *************************/
 	public function catalog() {
-		$this->_admin_skin('views/admin/catalog.php');
+		$this->_admin_skin('views/admin/catalog.php', $args);
 	}
 
 	public function add_edit($isbn) {
-		$this->_admin_skin('views/admin/add_edit.php');
+		$bookModel = new BookModel();
+		$authorModel = new AuthorModel();
+		$reviewModel = new ReviewModel();
+
+		$args;
+		if ($isbn) {
+			$books = $bookModel->getBookByISBN($isbn);
+		}
+		if ($books[0]) {
+			$book = $books[0];
+			$reviews = $reviewModel->getReviews($isbn);
+			$authors = $authorModel->getByISBN($isbn);
+			$args = array(
+				"isbn"    => $isbn,
+				"book"    => $book,
+				"reviews" => $reviews,
+				"authors" => $authors
+			);
+		}
+		$this->_admin_skin('views/admin/add_edit.php', $args);
 	}
 
 	public function create_book() {
-		require_once('models/book.php');
-		require_once('models/author.php');
-		require_once('models/review.php');
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
 		$bookModel = new BookModel();
 		$authorModel = new AuthorModel();
 		$reviewModel = new ReviewModel();
@@ -76,18 +99,137 @@ class Admin extends BaseController {
 		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 
-	public function update_book() {
+	public function delete_book($isbn) {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
 
+		$bookModel = new BookModel();
+		$bookModel->update($isbn, "deleted", 1);
+		header('Location: ' . SITE_ROOT . 'admin/search');
+	}
+
+	public function activate_book($isbn) {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
+
+		$bookModel = new BookModel();
+		$bookModel->update($isbn, "deleted", 0);
+		header('Location: ' . SITE_ROOT . 'admin/search');
+	}
+
+	public function update_book() {
+		if ($_SESSION['administrator'] != 1) {
+			header('Location: ' . SITE_ROOT . 'admin/login');
+			exit();
+		}
+		$bookModel = new BookModel();
+		$authorModel = new AuthorModel();
+		$reviewModel = new ReviewModel();
+		
+		$book = $bookModel->getBookByISBN($_POST['isbn']);
+		$authors = $authorModel->getByISBN($_POST['isbn']);
+		$reviews = $reviewModel->getReviews($_POST['isbn']);
+		$book = $book[0];
+
+		if ($book) {
+			foreach (array_keys($bookModel->book_def) as $col) {
+				if (isset($_POST[$col]) && $_POST[$col] != $book[$col]) {
+					$bookModel->update($book['isbn'], $col, $_POST[$col]);
+				}
+			}
+
+			foreach ($authors as $author) {
+				$authorModel->removeWrote($author['id'], $book['isbn']);
+			}
+
+			$count = 1;
+			while ($_POST["firstName$count"] || $_POST["lastName$count"]) {
+				$fname = $_POST["firstName$count"];
+				$lname = $_POST["lastName$count"];
+				$authors = $authorModel->getByName($fname, $lname);
+				if (!$authors[0]) {
+					$authorModel->create(array(
+						"first_name" => $fname,
+						"last_name"  => $lname,
+					));
+	
+					$authors = $authorModel->getByName($fname, $lname);
+				}
+
+				$author = $authors[0];
+				$authorModel->addWrote(array(
+					"isbn"      => $_POST['isbn'],
+					"author_id" => $author['id'],
+				));	
+				
+				$count++;
+			}
+
+			foreach ($reviews as $review) {
+				$reviewModel->delete($review['review_number']);
+			}
+
+			$count = 1;
+			while (isset($_POST["review$count"])) {
+				$reviewModel->create(array(
+					"isbn"        => $_POST['isbn'],
+					"review_text" => $_POST["review$count"],
+				));
+				$count++;
+			}
+		}
+		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 /***************************************************************************/
+
+	public function orders() {
+		require_once('models/orders.php');
+		$orderModel = new OrderModel();
+		$bookModel  = new BookModel();
+		
+		$args['orders'] = $orderModel->getOrdersDetails();
+		$args['needs']  = $bookModel->inventoryNeeded();
+
+		$this->_admin_skin('views/admin/orders.php', $args);
+	}
+
+	public function order($isbn) {
+		$bookModel = new BookModel();
+
+		$books = $bookModel->getBookByISBN($isbn);
+		$bookModel->update($isbn, "inventory_quantity", $books[0]['inventory_minimum']);
+		header('Location: ' . SITE_ROOT . "admin/orders");
+	}
+
+
+	public function shipped($order_number) {
+		require_once('models/orders.php');
+		$orderModel = new OrderModel();
+
+		$orderModel->ship($order_number);
+		header('Location: ' . SITE_ROOT . 'admin/orders');
+	}
+
+	public function cancel($order_number) {
+		require_once('models/orders.php');
+		$orderModel = new OrderModel();
+
+		$orderModel->cancel($order_number);
+		header('Location: ' . SITE_ROOT . 'admin/orders');
+		
+	}
 	
 	public function search() {
-		require_once('views/admin/search.php');
+		$this->_admin_skin('views/search.php', $args);
 	}
 
 	public function search_results() {
-		require_once('models/adminsearch.php');
-		$model = new AdminSearchModel();
+		require_once('models/search.php');
+		$model = new SearchModel();
 
 		$searchFor = $_POST['searchFor'];
 		$searchIn = $_POST['searchIn'];
@@ -96,62 +238,28 @@ class Admin extends BaseController {
 		$data = $model->getData($searchFor, $searchIn, $category);
 
 		// load the view
-		require_once('views/admin/search_results.php');
+		$this->_admin_skin('views/search_results.php', $data);
 
 
 		//$this->_admin_skin('views/admin/search_results.php');
 	}
 
-	public function orders() {
-		$this->_admin_skin('views/admin/orders.php');
-	}
-
 	public function reports() {
-		
-		// this counts the sessions within in a given idletime
-
-		define("MAX_IDLE_TIME", 3); 
+		require_once('models/reports.php');
 		
 		$count = 0;
-		
-		if ( $directory_handle = opendir( session_save_path() ) ) { 
-			 echo readdir($directory_handle);
-			while ( false !== ( $file = readdir( $directory_handle ) ) ) { 
-				if($file != '.' && $file != '..'){ 
-					if(time()- fileatime(session_save_path() . '\\' . $file) < MAX_IDLE_TIME * 60) { 
-						$count++; 
-					} 
-				} 
-				closedir($directory_handle); 
-			}
-			
-		} else { 
-			echo "cannot read session_save_path ";
-			echo session_save_path(); 
-	} 
-		
-		require_once('models/reports.php');
 		$model = new ReportsModel();
 		$books = $model->getBooksByCategoryTotalNumberDesc();
-
-		// foreach ($books as $category) {
-		// 	echo $category['category'];
-		// 	echo $category['books_count'];
-		// }
-
-
 		$sales = $model->getAvgSalesPerMonth();
-		// foreach ($sales as $month) {
-		// 	echo $month['sumOrders'];
-		// 	echo date("F", mktime(0, 0, 0,$month['month'], 10)); 
-		// }
-echo count(glob(session_save_path() . '/*'));
 		
-		require_once('views/admin/reports.php');
+		$args['books'] = $books;
+		$args['sales'] = $sales;
+		$args['count'] = $count;
+		$this->_admin_skin('views/admin/reports.php', $args);
 	}
 
 	public function profile() {
-		$this->_admin_skin('views/admin/profile.php');
+		$this->_admin_skin('views/admin/profile.php', $args);
 	}
 
 	public function logout() {
@@ -160,11 +268,14 @@ echo count(glob(session_save_path() . '/*'));
 		header( 'Location: ' . SITE_ROOT . 'admin');
 	}
 
-	public function _admin_skin($view) {
+	public function _admin_skin($view, $args) {
 		if ($_SESSION['administrator'] != 1) {
 			header('Location: ' . SITE_ROOT . 'admin/login');
 			exit();
 		}
+	
+		$args = $args;	
+		$data = $args;
 		require_once('views/admin/dashboard.php');
 		require_once($view);
 		require_once('views/global/footer.php');

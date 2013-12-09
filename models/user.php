@@ -11,7 +11,7 @@ class UserModel extends BaseModel {
 		$sql = "SELECT *
 	    		FROM user
 	    		WHERE user.username = '{$username}';";
-
+		
 		$data = $this->performQuery($sql);
 		return $data;
 	}

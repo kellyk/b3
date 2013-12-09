@@ -17,6 +17,8 @@ class BookModel extends BaseModel {
 			"year_published"     => "INTEGER",
 			"price"              => "DECIMAL",
 		);
+
+		$this->book_id = 'isbn';
 	}
 
 	// return all books in database
@@ -37,7 +39,7 @@ class BookModel extends BaseModel {
 	    		FROM book, author, wrote
 	    		WHERE wrote.isbn = book.isbn 
 	    		AND wrote.author_id = author.id
-	    		AND book.isbn = $isbn
+	    		AND book.isbn = '$isbn'
 	    		GROUP by book.isbn;";
 
 	    $data = $this->performQuery($sql);
@@ -84,9 +86,22 @@ class BookModel extends BaseModel {
 		return $data;
 	}
 
+	function inventoryNeeded() {
+		return $this->performQuery("
+			SELECT *
+			FROM book
+			WHERE inventory_quantity < inventory_minimum
+			OR inventory_quantity IS NULL;"
+		);
+	}
+
 	//Create book. Parameter is an associative array.
 	function createBook($details) {
 		return $this->insert($details, "book");
 	}
 
+	//Update a column
+	function update($isbn, $col, $val) {
+		parent::update($isbn, $col, $val, "book");
+	}
 }

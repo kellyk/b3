@@ -24,6 +24,11 @@ class SearchModel extends BaseModel {
 	            AND wrote.author_id = author.id
 	            AND book.category = '{$category}'";
 	    
+		// If the user is not an administrator,
+		// Dont' show deleted books.
+		if (!$_SESSION['administrator']) {
+			$query = $query . " AND ( book.deleted = 0 OR book.deleted IS NULL) ";
+		}
 	    // since $fields was a multiple select input, we need to iterate through
 	    // each selection and find any matches. Could be refactored to be more modular.
 	    $fieldStatements = array();

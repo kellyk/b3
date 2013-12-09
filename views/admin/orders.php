@@ -1,5 +1,10 @@
+<?php
+	$orders = $args['orders'];
+	$needs  = $args['needs'];
+?>
 <div>
-	<?php if(!$_GET['mock_orders']) : ?>
+	<h1>Customer Orders</h1>
+	<?php if(!$orders) : ?>
 	<h3>No outstanding orders</h3>
 	<?php else : ?>
 	<table class="table">
@@ -11,17 +16,21 @@
 			<th>Shipping</th>
 			<th>Total</th>
 		</thead>
+		<?php foreach ($orders as $order) {
+			$user = $orders['user'];
+			$items = $order['items'];
+		?>
 			<tr>
 				<td>
-					<input type="button" class="form-control" value="Shipped" /><br /><br />
-					<input type="button" class="form-control" value="Cancel" />
+					<a href="<?php echo SITE_ROOT . "admin/shipped/$order[order_number]" ;?>" class="form-control btn btn-med" >Shipped</a><br /><br />
+					<a href="<?php echo SITE_ROOT . "admin/cancel/$order[order_number]" ; ?>" class="form-control btn btn-med" >Cancel</a>
 				</td>
-				<td><strong>#12345</strong></td>
+				<td><strong>#<?php echo $order['order_number'];  ?></strong></td>
 				<td>
-					Kevin Johnson<br />
-					123 Pine dr.<br />
-					Ypsilanti<br />
-					Michigan   48917
+					<?php echo "$user[first_name] $user[last_name]"; ?><br />
+					<?php echo $order['address_line']; ?><br />
+					<?php echo $order['address_city']; ?><br />
+					<?php echo "$order[address_state] $order[zip]"; ?>
 				</td>
 				<td>
 					<table class="table">
@@ -31,42 +40,52 @@
 							<th>Unit Price</th>
 						</thead>
 						<tbody>
+						<?php foreach ($items as $item) { ?>
 							<tr>
-								<td><a href="#">123456</a></td>
-								<td>1</td>
+								<td><a href="#"><?php echo $item['isbn']; ?></a></td>
+								<td><?php echo $item['quantity']; ?></td>
 								<td>$34.99</td>
 							</tr>
-							<tr>
-								<td><a href="#">654321</a></td>
-								<td>1</td>
-								<td>$38.49</td>
-							</tr>
+						<?php } ?>
 						</tbody>
 					</table>
 				</td>
-				<td>$4.00</td>
-				<td>$77.98</td>
+				<td><?php $order['shipping']?></td>
+				<td><?php $order['total'] ?></td>
 			</tr>
-			<tr>
-				<td>
-					<input type="button" class="form-control" value="Order Placed" /><br /><br />
-					<input type="button" class="form-control" value="Cancel" />
-				</td>
-				<td><strong>#12346</strong></td>
-				<td>
-					INVENTORY
-				</td>
-				<td>
-					<a href="#">654321</a></td>
-				</td>
-				<td></td>
-				<td></td>
-			</tr>
+		<?php } ?>
 		<tbody>
 		</tbody>
 		<tfoot>
 		</tfoot>
 	</table>
 	<?php endif; ?>
+
+	<h1>Internal Order</h1>
+	<?php if (!$needs) { ?>
+	<h3>No Needs</h3>
+	<?php } else { ?>
+		<table class="table">
+			<thead>
+				<th>Action</th>
+				<th>ISBN</th>
+				<th>Title</th>
+				<th>Current Inventory</th>
+				<th>Minimum Inventory</th>
+			</thead>
+			<tbody>
+			<?php foreach ($needs as $need) { ?>
+				<tr>
+					<td><a href="<?php echo SITE_ROOT . "admin/order/$need[isbn]" ;?>" >Order</a></td>
+					<td><?php echo $need['isbn']; ?></td>
+					<td><?php echo $need['title']; ?></td>
+					<td><?php echo $need['inventory_quantity']; ?></td>
+					<td><?php echo $need['inventory_minimum']; ?></td>
+				</tr>
+			
+			<?php } ?>
+			</tbody>
+		</table>
+	<?php } ?>
 </div>
 </div>

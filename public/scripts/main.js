@@ -67,4 +67,24 @@ $(document).ready(function(){
 			reviews.find('textarea:last').remove();
 		}
 	});
+
+	$('#add_edit_submit').click(function(e) {
+		e.preventDefault();
+		
+		if ($('#add_edit_submit').val() == "Update") {
+			if($('#quantity').val() > $('#current_quantity').val()) {
+				if (confirm("This will generate an order. Proceed?")) {
+					$('#add_edit_form').submit();
+				}
+				else {
+					return false;
+				}
+			}
+			$('#add_edit_form').submit();
+		}
+		$('#add_edit_form').submit();
+	});
+
+	var category = $('#editCategory');
+	category.val(category.attr('set_to'));
 });

@@ -51,5 +51,10 @@ class AuthorModel extends BaseModel {
 	public function addWrote($data) {
 		return $this->insert($data, "wrote");
 	}
+
+	public function removeWrote($id, $isbn) {
+		$sql = "DELETE FROM wrote WHERE author_id = $id AND isbn = $isbn;";
+		return $this->performWrite($sql);
+	}
 };
 
