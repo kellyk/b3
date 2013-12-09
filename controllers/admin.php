@@ -219,6 +219,9 @@ class Admin extends BaseController {
 		$books = $model->getBooksByCategoryTotalNumberDesc();
 		$sales = $model->getAvgSalesPerMonth();
 		
+		$args['books'] = $books;
+		$args['sales'] = $sales;
+		$args['count'] = $count;
 		$this->_admin_skin('views/admin/reports.php', $args);
 	}
 

@@ -1,3 +1,8 @@
+<?php 
+	$count = $args['count'];
+	$books = $args['books'];
+	$sales = $args['sales'];
+?>
 <div>
 	
  <!--Total number of customers in the system at the time and date of inquiry.
