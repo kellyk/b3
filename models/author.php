@@ -11,6 +11,11 @@ class AuthorModel extends BaseModel {
 			"first_name" => "STRING",
 			"last_name"  => "STRING",
 		);
+
+		$this->wrote_def = array(
+			"author_id" => "INTEGER",
+			"isbn"      => "STRING",
+		);
 	}
 
 	public function getByID($id) {
@@ -41,6 +46,10 @@ class AuthorModel extends BaseModel {
 
 	public function create($data) {
 		return $this->insert($data, "author");
+	}
+
+	public function addWrote($data) {
+		return $this->insert($data, "wrote");
 	}
 };
 

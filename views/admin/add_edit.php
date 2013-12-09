@@ -21,9 +21,11 @@
 								<th>Last Name</th>
 							</tr>
 						</thead>
-						<tbody>
-							<td><input type="text" name="firstName" class="form-control"/></td>
-							<td><input type="text" name="lastName" class="form-control"/></td>
+						<tbody id="addAuthorList" count="1">
+							<tr>
+								<td><input type="text" name="firstName1" class="form-control"/></td>
+								<td><input type="text" name="lastName1" class="form-control"/></td>
+							</tr>
 						</tbody>
 						<tfoot>
 							<td><a href="#" id="addAuthor">Add Author</a></td>

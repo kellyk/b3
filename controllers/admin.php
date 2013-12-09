@@ -27,7 +27,11 @@ class Admin extends BaseController {
 
 	public function create_book() {
 		require_once('models/book.php');
+		require_once('models/author.php');
+		require_once('models/review.php');
 		$bookModel = new BookModel();
+		$authorModel = new AuthorModel();
+		
 		
 		foreach (array_keys($bookModel->book_def) as $col) {
 			if (isset($_POST[$col]) && $_POST[$col] != '') {
@@ -36,6 +40,32 @@ class Admin extends BaseController {
 		}
 
 		$bookModel->createBook($args);
+
+		$count = 1;
+		while ($_POST["firstName$count"] || $_POST["lastName$count"]) {
+			$fname = $_POST["firstName$count"];
+			$lname = $_POST["lastName$count"];
+			$authors = $authorModel->getByName($fname, $lname);
+			if (!$authors[0]) {
+				$authorModel->create(array(
+					"first_name" => $fname,
+					"last_name"  => $lname,
+				));
+
+				$authors = $authorModel->getByName($fname, $lname);
+			}
+
+			$author = $authors[0];
+			$authorModel->addWrote(array(
+				"isbn"      => $_POST['isbn'],
+				"author_id" => $author['id'],
+			));	
+			
+			$count++;
+		}
+
+		$count = 1;
+		
 		header('Location: ' . SITE_ROOT . 'admin/catalog');
 	}
 
