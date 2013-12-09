@@ -38,6 +38,8 @@
   <!--This button auto forwards temporarily -->
 		<input type="submit" id="searchSubmit" class="btn btn-primary" value="Submit" disabled/>
 </form>
+		<br />
+		<a id="browse" href="<?php echo SITE_ROOT ?>search/browse"><button class="btn btn-default">Browse</button></a>
 </div>
 </div>
 

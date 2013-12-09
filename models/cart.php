@@ -20,11 +20,20 @@ class CartModel extends BaseModel {
 
 	    // compute the total price for each book, depending on the number of copies
 		foreach ($data['books'] as &$book) {
+			$data['num_books'] += $book['quantity'];
 			$book['total'] = $book['price'] * $book['quantity'];
 			$data['total'] += $book['total'];
 		}
 
 		return $data;
+	}
+
+	private function emptyCart($username) {
+		// remove individual books from cart_items
+		$data = $this->getCartItems($_SESSION['username']);
+		foreach($data['books'] as $book) {
+			$this->removeBook($book['isbn']);
+		}
 	}
 
 	public function addBook($isbn) {
@@ -86,5 +95,34 @@ class CartModel extends BaseModel {
 
 		$result = $this->performWrite($sql);
 		return;
+	}
+
+	public function placeOrder($user) {
+		$user = $user[0];
+		$sql = "INSERT INTO orders
+				(username, address_line, address_city, address_state, address_zip, ccnumber, cctype)
+		   VALUES('{$user['username']}', '{$user['address']}', '{$user['city']}', '{$user['state']}',
+		   		  '{$user['zip']}', {$user['ccnumber']}, '{$user['cctype']}'
+		);";
+		$result = $this->performWrite($sql);
+		return $result;
+	}
+
+	public function addLineItems($id) {
+		$data = $this->getCartItems($_SESSION['username']);
+		foreach($data['books'] as $book) {
+			$this->addLine($book, $id);
+		}
+
+		$this->emptyCart();
+	}
+
+	protected function addLine($book, $order_id) {
+		$sql = "INSERT INTO line_item
+				values({$order_id}, '{$book['isbn']}', {$book['quantity']}, {$book['price']})
+			;";
+
+		$result = $this->performWrite($sql);
+		return $result;
 	}
 }

@@ -44,7 +44,7 @@ class BaseModel {
 		    throw new Exception('There was an error running the query [' . $db->error . ']' . ' (Query: ' . $sql . ')');
 		}
 
-		return $result;
+		return $db->insert_id;
 	}
 
 
