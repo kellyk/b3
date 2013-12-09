@@ -61,7 +61,7 @@ class Cart extends BaseController {
 		$this->index();
 	}
 
-	public function checkout() {
+	public function checkout($error_message) {
 		if (isset($_SESSION['username'])){
 
 			// get the list of books in the cart
@@ -74,11 +74,48 @@ class Cart extends BaseController {
 			$userModel = new UserModel();
 			$user = $userModel->getUser($_SESSION['username']);
 			$user = $user[0];
-			// get the user's credit card information
 
 		} else {
-			$error = "Please log in to place an order!";
+			$error_message = "Please log in to place an order!";
 		}
 		require_once('views/checkout.php');
+	}
+
+	public function submit() {
+		// figure out which card to use new or existing
+		if($_POST['credit-card'] === 'new') {
+			$cc_type = $_POST['cc-type'];
+			$cc_number = $_POST['new-cc-number'];
+
+			if(is_numeric($cc_number)) {
+				require_once('models/user.php');
+				$userModel = new UserModel();
+				$userModel->updateCreditCard($cc_type, $cc_number);
+			}
+			else {
+				$error_message = "Please enter a valid credit card number.";
+				$this->checkout($error_message);
+			}
+		}
+
+		// get the user info
+		require_once('models/user.php');
+		$user_model = new UserModel();
+		$user = $user_model->getUser($_SESSION['username']);
+
+		// create a new order
+		require_once('models/cart.php');
+		$cart = new CartModel();
+		$id = $cart->placeOrder($user);
+		// echo $order_id;
+		//create line items for each book in the cart
+		$cart->addLineItems($id);
+
+		$this->receipt();
+	}
+
+	public function receipt() {
+		// load the view
+		require_once('views/receipt.php');
 	}
 }

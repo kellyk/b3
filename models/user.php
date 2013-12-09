@@ -69,4 +69,14 @@ class UserModel extends BaseModel {
 		
 		return (sizeof($result) <= 0);
 	}
+
+	public function updateCreditCard($type, $number) {
+		$sql = "UPDATE user
+				SET ccnumber = '{$number}',
+					cctype = '{$type}'
+				WHERE username = '{$_SESSION['username']}';";
+		echo $sql;
+		$result= $this->performWrite($sql);
+		return $result;
+	}
 }
