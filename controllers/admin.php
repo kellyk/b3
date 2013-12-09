@@ -298,7 +298,7 @@ class Admin extends BaseController {
 
 		$userModel->insert($args, "user");
 		$userModel->insert(array("username" => $_POST['username'], "hire_date" => $_POST['hire_date']), "administrator");
-		header('Location: ' SITE_ROOT . "admin");
+		header('Location: ' . SITE_ROOT . "admin");
 	}
 
 	public function logout() {
