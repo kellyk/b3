@@ -1,7 +1,7 @@
 <div>
 	<div id="insert_new_book" >
 		<?php $isbn = $args['isbn']; // print_r($args); ?>
-		<form role="form" action="<?php echo SITE_ROOT . "admin/" . ($isbn ? "update_book" : "create_book"); ?>" method="POST">
+		<form role="form" id="add_edit_form" action="<?php echo SITE_ROOT . "admin/" . ($isbn ? "update_book" : "create_book"); ?>" method="POST">
 			<div class="form-group">
 				<label for="isbn">ISBN:</label>
 				<?php if($isbn) : ?>
@@ -71,6 +71,7 @@
 				<input type="text" name="price" class="form-control" id="price" value="<?php echo $args['book']['price']; ?>" />
 				<label for="quantity">Min. Qty Required In-Stock:</label>
 				<input type="text" name="inventory_minimum" class="form-control" id="quantity" value="<?php echo $args['book']['inventory_minimum']; ?>" />
+				<input type="hidden" name="inventory_quantity" id="current_quantity" value="<?php echo $args['book']['inventory_quantiy']; ?>" />
 			</div>
 			<div class="form-group">
 				<label for="reviewsBox">Review(s):</label>
@@ -88,7 +89,7 @@
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="deleted" value="0" />
-				<input type="submit" class="form-control" value="<?php echo $isbn ? "Update" : "Insert";?>" />
+				<input type="button" id="add_edit_submit" class="form-control" value="<?php echo $isbn ? "Update" : "Insert";?>" />
 				<input type="button" class="form-control" value="Cancel" />
 			</div>
 
