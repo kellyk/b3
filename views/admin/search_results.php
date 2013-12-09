@@ -1,4 +1,3 @@
-<?php include_once('views/global/header.php'); ?>
 <div>
 	<h3>Results for <span class="text-primary">Databases in <i>Keyword Anywhere</i></span></h3>
 	<?php if (!empty($data)) { ?>
@@ -33,7 +32,5 @@
 
 </div
 
-</div>
-</div>
 
-<?php include_once('views/global/footer.php'); ?>
+

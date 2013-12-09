@@ -1,4 +1,3 @@
-<?php include_once('views/global/header.php'); ?>
 <div>
 	
  <!--Total number of customers in the system at the time and date of inquiry.
@@ -45,7 +44,3 @@ Currently there are <?php echo $count ?> user online.
 
 
 </div>
-
-
-
-<?php include_once('views/global/footer.php'); ?>
