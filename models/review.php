@@ -5,6 +5,12 @@ class ReviewModel extends BaseModel {
 
 	public function __construct() {
 		parent::__construct();
+		
+		$this->review_def = array(
+			"review_numer" => 'INTEGER',
+			"isbn"         => 'STRING',
+			"review_text"  => 'STRING',
+		);
 	}
 
 	public function getReviews($isbn) {
@@ -16,5 +22,9 @@ class ReviewModel extends BaseModel {
 
 		$data = $this->performQuery($sql);
 		return $data;
+	}
+
+	public function create($data) {
+		return $this->insert($data, "review");
 	}
 }
