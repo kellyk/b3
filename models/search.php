@@ -21,7 +21,8 @@ class SearchModel extends BaseModel {
 	    $query = "SELECT *
 	            FROM book, author, wrote
 	            WHERE wrote.isbn = book.isbn 
-	            AND wrote.author_id = author.id";
+	            AND wrote.author_id = author.id
+	            AND book.category = '{$category}'";
 	    
 		// If the user is not an administrator,
 		// Dont' show deleted books.
@@ -66,7 +67,7 @@ class SearchModel extends BaseModel {
 	            return " (book.isbn like {$term}) ";
 	        }
 	        default: {
-	            return '(book.title like {$term})';
+	            return "(book.title like {$term})";
 	        }
 	    }
 	}

@@ -41,16 +41,15 @@ if (isset($data)) {
 </table>
 
 <div class="cart-controls pull-right">
-	<button class="btn btn-lg btn-default">Recalculate</button>
 	<a href="<?php echo SITE_ROOT; ?>cart/checkout" class="btn btn-lg btn-success">Checkout</a>
 </div>
 <?php
 }
 // if no items in cart, display appropriate message
-else if (isset($error)) {
-	echo $error;
+else if ($error_message) {
+	echo '<div class="alert alert-danger">' . $error_message . '</div>';
 } else {
-	echo "There are no items in your cart.";
+	echo '<div class="alert alert-info">There are no items in your cart.</div>';
 }
 
 include_once('views/global/footer.php');
