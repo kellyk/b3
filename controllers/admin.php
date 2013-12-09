@@ -169,8 +169,8 @@ class Admin extends BaseController {
 	}
 
 	public function search_results() {
-		require_once('models/adminsearch.php');
-		$model = new AdminSearchModel();
+		require_once('models/search.php');
+		$model = new SearchModel();
 
 		$searchFor = $_POST['searchFor'];
 		$searchIn = $_POST['searchIn'];
