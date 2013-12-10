@@ -84,10 +84,9 @@ class OrderModel extends BaseModel {
 	    		ON orders.order_number = line_item.order_number
 	    		INNER JOIN book 
 	    		ON line_item.isbn = book.isbn
-	    		WHERE orders.username = '{$username}'
-	    		AND orders.order_number = {$order_id}
-	    		AND orders.shipped_date IS NOT NULL";
-	   			
+	    		WHERE  orders.order_number = {$order_id}";
+	   			/*orders.username = '{$username}'
+	    		AND*/
 
 	    $order = $this->performQuery($sql);
 
