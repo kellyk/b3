@@ -112,6 +112,7 @@ class CartModel extends BaseModel {
 		$data = $this->getCartItems($_SESSION['username']);
 		foreach($data['books'] as $book) {
 			$this->addLine($book, $id);
+			$this->reduceInventory($book);
 		}
 
 		$this->emptyCart();
@@ -124,5 +125,26 @@ class CartModel extends BaseModel {
 
 		$result = $this->performWrite($sql);
 		return $result;
+	}
+
+	protected function reduceInventory($book) {
+		// get number of this book available and reduce by 1
+		$countSQL = "SELECT inventory_quantity
+			FROM book 
+			WHERE isbn = '{$book['isbn']}';";
+
+		$count = $this->performQuery($countSQL);
+		$count = $count[0]['inventory_quantity'];
+		$count--;
+
+		// set the new quantity
+		$sql = "UPDATE book 
+				SET inventory_quantity = $count
+				WHERE isbn = '{$book['isbn']}'
+				;";
+
+		$result = $this->performWrite($sql);
+
+		return;
 	}
 }
