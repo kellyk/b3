@@ -1,91 +1,97 @@
 <?php
-	$orders = $args['orders'];
-	$needs  = $args['needs'];
-?>
-<div>
-	<h1>Customer Orders</h1>
-	<?php if(!$orders) : ?>
-	<h3>No outstanding orders</h3>
-	<?php else : ?>
-	<table class="table">
-		<thead>
-			<th>Action</th>
-			<th>Order Number</th>
-			<th>Shipping address</th>
-			<th>Items</th>
-			<th>Shipping</th>
-			<th>Total</th>
-		</thead>
-		<?php foreach ($orders as $order) {
-			$user = $orders['user'];
-			$items = $order['items'];
-		?>
-			<tr>
-				<td>
-					<a href="<?php echo SITE_ROOT . "admin/shipped/$order[order_number]" ;?>" class="form-control btn btn-med" >Shipped</a><br /><br />
-					<a href="<?php echo SITE_ROOT . "admin/cancel/$order[order_number]" ; ?>" class="form-control btn btn-med" >Cancel</a>
-				</td>
-				<td><strong>#<?php echo $order['order_number'];  ?></strong></td>
-				<td>
-					<?php echo "$user[first_name] $user[last_name]"; ?><br />
-					<?php echo $order['address_line']; ?><br />
-					<?php echo $order['address_city']; ?><br />
-					<?php echo "$order[address_state] $order[zip]"; ?>
-				</td>
-				<td>
-					<table class="table">
-						<thead>
-							<th>ISBN</th>
-							<th>Qty</th>
-							<th>Unit Price</th>
-						</thead>
-						<tbody>
-						<?php foreach ($items as $item) { ?>
-							<tr>
-								<td><a href="#"><?php echo $item['isbn']; ?></a></td>
-								<td><?php echo $item['quantity']; ?></td>
-								<td>$34.99</td>
-							</tr>
-						<?php } ?>
-						</tbody>
-					</table>
-				</td>
-				<td><?php $order['shipping']?></td>
-				<td><?php $order['total'] ?></td>
-			</tr>
-		<?php } ?>
-		<tbody>
-		</tbody>
-		<tfoot>
-		</tfoot>
-	</table>
-	<?php endif; ?>
+require_once('BaseModel.php');
 
-	<h1>Internal Order</h1>
-	<?php if (!$needs) { ?>
-	<h3>No Needs</h3>
-	<?php } else { ?>
-		<table class="table">
-			<thead>
-				<th>Action</th>
-				<th>ISBN</th>
-				<th>Title</th>
-				<th>Current Inventory</th>
-				<th>Minimum Inventory</th>
-			</thead>
-			<tbody>
-			<?php foreach ($needs as $need) { ?>
-				<tr>
-					<td><a href="<?php echo SITE_ROOT . "admin/order/$need[isbn]" ;?>" >Order</a></td>
-					<td><?php echo $need['isbn']; ?></td>
-					<td><?php echo $need['title']; ?></td>
-					<td><?php echo $need['inventory_quantity']; ?></td>
-					<td><?php echo $need['inventory_minimum']; ?></td>
-				</tr>
-			
-			<?php } ?>
-			</tbody>
-		</table>
-	<?php } ?>
-</div>
-</div>
+class OrderModel extends BaseModel {
+
+	public function __construct() {
+		parent::__construct();
+
+		$this->orders_def = array(
+			"order_number" => "INTEGER",
+			"order_DATE"   => "STRING",
+			"username"     => "STRING",
+			"shipped_date" => "STRING",
+			"address_line" => "STRING",
+			"address_city" => "STRING",
+			"address_state" => "STRING",
+			"address_zip"  => "INTEGER",
+			"cctype"       => "STRING",
+			"ccnumber"     => "INTEGER",
+		);
+
+		$this->orders_id = "order_number";
+
+		$this->line_item_def = array(
+			"order_number" => "INTEGER",
+			"isbn"         => "STRING",
+			"quantity"     => "INTEGER",
+			"unit_Price"   => "DECIMAL"
+		);
+
+		$this->line_item_id = "order_number";
+	}
+
+	public function getOrdersDetails() {
+		require_once('models/user.php');
+		$userModel = new UserModel();
+
+		$sql = "SELECT *
+			FROM orders
+			WHERE shipped_date IS NULL;";
+		
+		$results = $this->performQuery($sql);
+		
+		foreach ($results as &$order) {
+			$order['user'] = $userModel->getUser($order['username']);
+			$order['user'] = $order['user'][0];
+			$order['items'] = $this->getItems($order['order_number']);
+			$order['shipping'] = 2 * count($order['items']);
+			$order['total'] = $order['shipping'];
+			foreach ($order['items'] as $item) {
+				$order['total'] = $order['total'] + $item['quantity'] * $item['unit_price'];
+			}
+		}
+		
+		return $results;
+	}
+
+	public function getItems($order_number) {
+		$sql = "SELECT *
+			FROM line_item
+			WHERE order_number = $order_number;";
+
+		return $this->performQuery($sql);
+	}
+
+	public function ship($id) {
+		return $this->update($id, "shipped_date", "NOW()");
+	}
+
+	public function cancel($id) {
+		$this->performWrite("DELETE FROM line_item WHERE order_number = $id;");
+		return $this->performWrite("DELETE FROM orders WHERE order_number = $id;");
+	}
+
+	public function update($id, $col, $value) {
+		return parent::update($id, $col, $value, "orders");
+	}
+
+
+	public function getOrderedItems($username, $order_id) {
+		$sql = "SELECT *
+	    		FROM line_item
+	    		INNER JOIN orders 
+	    		ON orders.order_number = line_item.order_number
+	    		INNER JOIN book 
+	    		ON line_item.isbn = book.isbn
+	    		WHERE orders.username = '{$username}'
+	    		AND orders.order_number = {$order_id}
+	    		AND orders.shipped_date IS NOT NULL";
+	   			
+
+	    $order = $this->performQuery($sql);
+
+	    return $order;
+	}
+
+}
