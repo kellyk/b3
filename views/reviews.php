@@ -17,7 +17,7 @@
 <?php } ?>
 
   <!--This button auto forwards temporarily -->
-		<a href="<?php echo SITE_ROOT; ?>search/results" class="btn btn-primary">Back to Search Results</a>
+		<a href="<?php echo SITE_ROOT; ?>search" class="btn btn-primary">Back to Search</a>
 </div>
 
 </div>
