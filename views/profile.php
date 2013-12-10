@@ -79,7 +79,7 @@
 						<option value="WI">Wisconsin</option>
 						<option value="WY">Wyoming</option>
 				    </select><br />
-				    <input type="text" name="zip" class="form-control" placeholder="Zip Code" required />
+				    <input type="text" name="zip" class="form-control" placeholder="Zip Code" value="<?php echo $user['zip']?>" required />
 				</div>
 			</div>
 			<div class="col-lg-1"></div>
