@@ -28,7 +28,7 @@ class CartModel extends BaseModel {
 		return $data;
 	}
 
-	private function emptyCart($username) {
+	private function emptyCart() {
 		// remove individual books from cart_items
 		$data = $this->getCartItems($_SESSION['username']);
 		foreach($data['books'] as $book) {
@@ -134,7 +134,7 @@ class CartModel extends BaseModel {
 			WHERE isbn = '{$book['isbn']}';";
 
 		$count = $this->performQuery($countSQL);
-		$count = $count[0]['inventory_quantity'];
+		$count = $count[0]['inventory_quantity'] ? $count[0]['inventory_quantity'] : 0;
 		$count--;
 
 		// set the new quantity
