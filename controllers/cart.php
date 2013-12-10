@@ -114,7 +114,7 @@ class Cart extends BaseController {
 		$this->receipt($id);
 	}
 
-		public function receipt($order_id) {
+	public function receipt($order_id) {
 		
 		if (isset($_SESSION['username'])) {
 			$model = new OrderModel();
@@ -143,5 +143,5 @@ class Cart extends BaseController {
 			$user = $user[0];
 			require_once('views/receipt.php');
 		}
-
+	}
 }
