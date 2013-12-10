@@ -44,16 +44,10 @@ class Profile extends BaseController {
 
 			if ($nameAvailable && $validCreditCard && $numericPin && $pinMatch) {
 				$success = $user->createUser($_POST);
-
-				if ($success) { // user successfully registered -- direct to search page
-					$success_message = "Thanks, " . $_POST['firstname'] . ', your profile has been successfully created!';
-					$_SESSION['logged_in'] = 1;
-					$_SESSION['username'] = $_POST['username'];
-					require_once('views/search.php');
-				} else { // error -- take back to registration form
-					$error_message = "Sorry, something went wrong. Please try again later.";
-					require_once('views/register.php');
-				}
+				$success_message = "Thanks, " . $_POST['firstname'] . ', your profile has been successfully created!';
+				$_SESSION['logged_in'] = 1;
+				$_SESSION['username'] = $_POST['username'];
+				require_once('views/search.php');
 			} else { // If one or more of the entries was invalid, return them to registration form
 				// $error_message = "Sorry, the username {$_POST['username']} is taken. Please pick a new name and resubmit.";
 				$error_message = $this->buildErrorString($nameAvailable, $validCreditCard, $numericPin, $pinMatch);
