@@ -124,15 +124,15 @@ class Cart extends BaseController {
 			$total = 0.0;
 			foreach($order as $item) {
 				
-				echo $item['isbn'];
-				echo $item['title'];
-				echo $item['unit_price'];
-				echo $item['quantity'];
+				// echo $item['isbn'];
+				// echo $item['title'];
+				// echo $item['unit_price'];
+				// echo $item['quantity'];
 				$total += $item['unit_price'] * $item['quantity'];
 			}
 
-			echo $total;
-			echo $order_id;
+			// echo $total;
+			// echo $order_id;
 
 			$data['total'] = $total;
 			$data['items'] = $order;
