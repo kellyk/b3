@@ -58,14 +58,12 @@
 				<label for="category">Category:</label>
 				<select name="category" id="editCategory" class="form-control" <?php if ($isbn) {
 					$category = $args[book][category]; echo "set_to=\"$category\""; }?>>
-				    	<option value="art">Art</option>
-				    	<option value="biology">Biology</option>
-				    	<option value="chemistry">Chemistry</option>
-				    	<option value="compsci">Computer Science</option>
-				    	<option value="english">English</option>
-				    	<option value="film">Film</option>
-				    	<option value="math">Mathematics</option>
-				    	<option value="music">Music</option>
+					<option value="art">Art</option>
+					<option value="biology">Biology</option>
+					<option value="chemistry">Chemistry</option>
+					<option value="computer science">Computer Science</option>
+					<option value="film">Film</option>
+					<option value="math">Mathematics</option>
 				</select>
 				<label for="price">Price:</label>
 				<input type="text" name="price" class="form-control" id="price" value="<?php echo $args['book']['price']; ?>" />

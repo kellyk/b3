@@ -267,6 +267,40 @@ class Admin extends BaseController {
 		$this->_admin_skin('views/admin/profile.php', $args);
 	}
 
+	public function profile_update() {
+
+		$userModel = new UserModel();
+		$user = $userModel->getUser($_POST['username']);
+		$user = $user[0];
+		
+		foreach (array_keys($userModel->user_def) as $col) {
+			if (isset($_POST[$col]) && $_POST[$col] != $user[$col]) {
+				if ($col == 'PIN' && $_POST[$col] != '*****') {
+					$userModel->update($user['username'], $col, $_POST[$col]);
+				}
+				elseif ($col != 'PIN') {
+					$userModel->update($user['username'], $col, $_POST[$col]);
+				}
+			}
+		}
+
+		header('Location: ' . SITE_ROOT . "admin");
+	}
+
+	public function profile_create() {
+		$userModel = new UserModel();
+		
+		foreach (array_keys($userModel->user_def) as $col) {
+			if (isset($_POST[$col]) && $_POST[$col] != '') {
+				$args[$col] = $_POST[$col];
+			}
+		}
+
+		$userModel->insert($args, "user");
+		$userModel->insert(array("username" => $_POST['username'], "hire_date" => $_POST['hire_date']), "administrator");
+		header('Location: ' . SITE_ROOT . "admin");
+	}
+
 	public function logout() {
 		// log user out and redirect to homepage
 		session_destroy();

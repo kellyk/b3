@@ -5,6 +5,21 @@ class UserModel extends BaseModel {
 
 	public function __construct() {
 		parent::__construct();
+
+		$this->user_def = array(
+			"username"   => "STRING",
+			"PIN"        => "DECIMAL",
+			"first_name" => "STRING",
+			"last_name"  => "STRING",
+			"city"       => "STRING",
+			"address"    => "STRING",
+			"zip"        => "DECIMAL",
+			"state"      => "STRING",
+			"cctype"     => "STRING",
+			"ccnumber"   => "DECIMAL"
+		);
+		
+		$this->user_id = "username";
 	}
 
 	public function getUser($username) {
@@ -45,6 +60,10 @@ class UserModel extends BaseModel {
 			WHERE user.username = '$username';"
 		);
 			
+	}
+
+	public function update($username, $col, $val) {
+		parent::update($username, $col, $val, "user");
 	}
 
 	public function createUser($data) {

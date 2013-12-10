@@ -1,7 +1,7 @@
 /* book */
-INSERT INTO book VALUES ('0073523321', 'Database System Concepts', 'Computer Science', 'McGraw-Hill', FALSE, 25, 10, 2010, 159.99);
-INSERT INTO book VALUES ('0810994429', 'Art: A World History', 'Art', 'Abrams', FALSE, 25, 10, 2007, 21.95);
-INSERT INTO book VALUES ('0077274334', 'Biology', 'Biology', 'McGraw Hill', FALSE, 25, 10, 2009, 189.99);
+INSERT INTO book VALUES ('0073523321', 'Database System Concepts', 'computer science', 'McGraw-Hill', FALSE, 25, 10, 2010, 159.99);
+INSERT INTO book VALUES ('0810994429', 'Art: A World History', 'art', 'Abrams', FALSE, 25, 10, 2007, 21.95);
+INSERT INTO book VALUES ('0077274334', 'Biology', 'biology', 'McGraw Hill', FALSE, 25, 10, 2009, 189.99);
 
 /* author */
 INSERT INTO author VALUES (DEFAULT, 'Silberschatz', 'Abraham');
