@@ -111,11 +111,37 @@ class Cart extends BaseController {
 		//create line items for each book in the cart
 		$cart->addLineItems($id);
 
-		$this->receipt();
+		$this->receipt($id);
 	}
 
-	public function receipt() {
-		// load the view
-		require_once('views/receipt.php');
-	}
+		public function receipt($order_id) {
+		
+		if (isset($_SESSION['username'])) {
+			$model = new OrderModel();
+			$order = $model->getOrderedItems($_SESSION['username'], $order_id);
+						
+			$total = 0.0;
+			foreach($order as $item) {
+				
+				echo $item['isbn'];
+				echo $item['title'];
+				echo $item['unit_price'];
+				echo $item['quantity'];
+				$total += $item['unit_price'] * $item['quantity'];
+			}
+
+			echo $total;
+			echo $order_id;
+
+			$data['total'] = $total;
+			$data['items'] = $order;
+
+			require_once('models/user.php');
+			$userModel = new UserModel();
+ 			$user = $userModel->getUser($_SESSION['username']);
+			// $data['user'] = $user[0];
+			$user = $user[0];
+			require_once('views/receipt.php');
+		}
+
 }
