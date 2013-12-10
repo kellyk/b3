@@ -75,4 +75,23 @@ class OrderModel extends BaseModel {
 	public function update($id, $col, $value) {
 		return parent::update($id, $col, $value, "orders");
 	}
+
+
+	public function getOrderedItems($username, $order_id) {
+		$sql = "SELECT *
+	    		FROM line_item
+	    		INNER JOIN orders 
+	    		ON orders.order_number = line_item.order_number
+	    		INNER JOIN book 
+	    		ON line_item.isbn = book.isbn
+	    		WHERE orders.username = '{$username}'
+	    		AND orders.order_number = {$order_id}
+	    		AND orders.shipped_date IS NOT NULL";
+	   			
+
+	    $order = $this->performQuery($sql);
+
+	    return $order;
+	}
+
 }
