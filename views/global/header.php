@@ -19,10 +19,6 @@
 			<button id="adminLogin" class="btn btn-primary pull-right">Admin Login</button>
 		</a>
 		<?php } ?>
- 		<button data-toggle="tooltip" title="temp dev tool.. click and refresh to simulate first visit"
- 			id="clearStorage" class="btn btn-default pull-right" onclick="localStorage.clear(); return false;"
- 			style="margin-right:20px">Clear Local Storage
- 		</button>
 
 	</div>
 	<nav>

@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-	$('#clearStorage').tooltip('show');
-
 	$('input[name="credit-card"]').click(function() {
 		if($(this).val() === 'new'){
 			$('.newCreditCard').show();

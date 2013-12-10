@@ -7,7 +7,19 @@ class Profile extends BaseController {
 	}
 
 	public function index() {
-		require_once('views/profile.php');
+		if (isset($_SESSION['username'])) {
+			//all fields are required, so if the first one is populated, we can proceed
+
+			// we will probably want to validate that the pins match at some point
+			require_once('models/user.php');
+			$userModel = new UserModel();
+			$user = $userModel->getUser($_SESSION['username']);
+			$user = $user[0];
+
+			require_once('views/profile.php');
+		} else {
+			$this->register();
+		}
 	}
 
 	public function register() {

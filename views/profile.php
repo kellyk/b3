@@ -1,43 +1,32 @@
 <?php include_once('views/global/header.php'); ?>
 
-<h2>Hello, Kelly!</h2>
+<h2>Hello, <?php echo $user['first_name']?>!</h2>
 <h4 class="text-muted">To update your profile, update the fields below and click save.</h4><br />
-	<form role="form" >
-		<div class = "row col-md-5">
-		  	<div class="form-group">
-		    	<label for="username">Username</label>
-		    	<input type="text" class="form-control" id="username" value="kellyk">
-		  	</div>
-		  	<div class="form-inline">
+	<form role="form" method="POST" action="<?php echo SITE_ROOT ?>profile/register">
+			<div class="col-lg-5">
 			  	<div class="form-group">
-				    <label for="pin">Pin</label>
-				    <input type="pin" class="form-control" id="pin" value="****" required />
+			    	<input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo $user['username']?>" required />
+			  	</div>
+			  	<div class="form-group">
+				   <input type="text" name="pin" class="form-control" placeholder="Pin (digits only)" value="<?php echo $user['PIN']?>"required />
 				</div>
 				<div class="form-group">
-				    <label for="verifyPin">Verify pin</label>
-				    <input type="verifyPin" class="form-control" id="verifyPin" value="****" required />
+				    <input type="text" name="repin" class="form-control" placeholder="Verify Pin" value="<?php echo $user['PIN']?>" required />
 				</div>
-			</div><br />
-			<div class="form-group">
-			    <label for="fName">First Name</label>
-			    <input type="fName" class="form-control" id="fName" value="Kelly">
-			</div>
-			<div class="form-group">
-			    <label for="lName">Last Name</label>
-			    <input type="lName" class="form-control" id="lName" value="King">
-			</div>
-			<div class="form-group">
-			    <label for="address">Address</label>
-			    <input type="address" class="form-control" id="address" value="922 W. Maple St.">
-			</div>
-			<div class="form-group">
-			    <label for="city">City</label>
-			    <input type="text" class="form-control" id="city" value="Ann Arbor">
-			</div>
-			<div class="form-inline">
 				<div class="form-group">
-				    <label for="state">State</label>
-				    <select type="text" class="form-control" id="state">
+				    <input type="text" name="firstname" class="form-control" placeholder="First Name" value="<?php echo $user['first_name']?>" required />
+				</div>
+				<div class="form-group">
+				    <input type="text" name="lastname" class="form-control" placeholder="Last Name" value="<?php echo $user['last_name']?>" required />
+				</div>
+				<div class="form-group">
+				    <input type="text" name="street" class="form-control" placeholder="Street" value="<?php echo $user['address']?>" required />
+				</div>
+				<div class="form-group">
+				    <input type="text" name="city" class="form-control" placeholder="City" value="<?php echo $user['city']?>" required />
+				</div>
+				<div class="form-group">
+				    <select type="text" name="state" class="form-control">
 						<option value="AL">Alabama</option>
 						<option value="AK">Alaska</option>
 						<option value="AZ">Arizona</option>
@@ -60,7 +49,7 @@
 						<option value="ME">Maine</option>
 						<option value="MD">Maryland</option>
 						<option value="MA">Massachusetts</option>
-						<option value="MI" selected="selected">Michigan</option>
+						<option value="MI">Michigan</option>
 						<option value="MN">Minnesota</option>
 						<option value="MS">Mississippi</option>
 						<option value="MO">Missouri</option>
@@ -89,53 +78,45 @@
 						<option value="WV">West Virginia</option>
 						<option value="WI">Wisconsin</option>
 						<option value="WY">Wyoming</option>
+				    </select><br />
+				    <input type="text" name="zip" class="form-control" placeholder="Zip Code" required />
+				</div>
+			</div>
+			<div class="col-lg-1"></div>
+			<div class="col-lg-6">
+				<div class="form-group">
+				    <label for="cc-type">Credit Card</label>
+				    <select name="card_type" class="form-control">
+				    	<option value="visa">Visa</option>
+				    	<option value="mastercard">Mastercard</option>
+				    	<option value="discover">Discover</option>
 				    </select>
 				</div>
-				<div class="form-group">
-				    <label for="zip">Zip Code</label>
-				    <input type="text" class="form-control" value="48103" id="zip">
+			    <div class="form-group">
+				    <label for="cc-number">Number</label>
+				    <input type="text" name="card_number" class="form-control" id="cc-number" value="<?php echo $user['ccnumber']?>" required />
 				</div>
-			</div>
-		</div>
-		<div class = "row col-md-1"></div>
-		<div class = "row col-md-6">
-			<div class="form-group">
-			    <label for="cc-type">Credit Card</label>
-			    <select class="form-control" id="cc-type">
-			    	<option value="visa">Visa</option>
-			    	<option value="mastercard">Mastercard</option>
-			    	<option value="discover">Discover</option>
-			    </select>
-			</div>
-		    <div class="form-group">
-			    <label for="cc-number">Number</label>
-			    <input type="text" class="form-control" id="cc-number" value="**** **** **** 3456">
-			</div>
-			<div class="form-inline">
 				<div class="form-group">
 				    <label for="cc-month">Month</label>
-				    <select class="form-control" id="cc-month">
+				    <select class="form-control" name="card_month">
 				    	<option value="1">Jan</option>
 				    	<option value="2">Feb</option>
-				    	<option value="3" selected="selected">Mar</option>
+				    	<option value="3">Mar</option>
 				    </select>
 				</div>
 				<div class="form-group">
 				    <label for="cc-year">Year</label>
-				    <select class="form-control" id="cc-year">
-				    	<option value="2013">2013</option>
+				    <select class="form-control" name="card_year">
 				    	<option value="2014">2014</option>
 				    	<option value="2015">2015</option>
-				    	<option value="2016" selected="selected">2016</option>
+				    	<option value="2016">2016</option>
 				    	<option value="2017">2017</option>
 				    	<option value="2018">2018</option>
 				    </select>
 				</div>
-			</div> <br />
-			<div class="form-group">
-				<button type="submit" class="btn btn-lg btn-success">Save</button>
+				<div class="form-group">
+					<input type="submit" value="Submit" class="btn btn-lg btn-success" />
+				</div>
 			</div>
-			</div>
-		</div>
-	</form>
+		</form>
 <?php include_once('views/global/footer.php'); ?>
