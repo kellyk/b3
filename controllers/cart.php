@@ -117,6 +117,7 @@ class Cart extends BaseController {
 	public function receipt($order_id) {
 		
 		if (isset($_SESSION['username'])) {
+			require_once('models/orders.php');
 			$model = new OrderModel();
 			$order = $model->getOrderedItems($_SESSION['username'], $order_id);
 						
